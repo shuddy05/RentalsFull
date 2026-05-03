@@ -18,10 +18,13 @@ const startServer = async () => {
     await mongoose.connect(process.env.MONGO_URI);
 
     console.log("Database Connected");
-    await app.listen(port);
-    console.log(`Server is running on PORT ${port}`);
+
+    app.listen(port, () => {
+      console.log(`Server is running on PORT ${port}`);
+    });
   } catch (error) {
-    console.error("Unable to connect to the database", error);
+    console.error("Unable to connect to the database:", error.message);
+    process.exit(1);
   }
 };
 startServer();
