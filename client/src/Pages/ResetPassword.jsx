@@ -27,7 +27,6 @@ const ResetPassword = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Get email and otp passed from VerifyOTP page
   const email = location.state?.email;
   const otp = location.state?.otp;
 
@@ -49,26 +48,28 @@ const ResetPassword = () => {
     setLoading(false);
 
     if (result.success) {
-      navigate("/"); // redirect to login
+      navigate("/");
     } else {
       setError(result.message);
     }
   };
 
   return (
-    <main className="bg-[#f5f5e8] h-screen">
+    <main className="min-h-screen bg-[#f5f5e8]">
       <form
         onSubmit={handleSubmit(handleReset)}
-        className="layout flex flex-col gap-5 md:flex-row justify-between items-center"
+        className="layout flex flex-col gap-8 md:flex-row justify-between items-center min-h-screen py-10"
       >
-        <div className="w-full md:max-w-113.25 md:max-h-149.5">
-          <h1 className="text-[32px] font-bold">Reset Your Password</h1>
-          <p className="text-[16px] text-gray-500 mb-6">
+        <div className="w-full md:max-w-[453px]">
+          <h1 className="text-2xl sm:text-[32px] font-bold">
+            Reset Your Password
+          </h1>
+          <p className="text-sm sm:text-[16px] text-gray-500 mb-6">
             You're just one step away from accessing your account.
           </p>
 
           <div className="flex flex-col gap-2 mb-4">
-            <label className="text-[16px]" htmlFor="password">
+            <label className="text-sm sm:text-[16px]" htmlFor="password">
               Password <span className="text-red-500 font-bold">*</span>
             </label>
             <div className="relative">
@@ -95,7 +96,7 @@ const ResetPassword = () => {
           </div>
 
           <div className="flex flex-col gap-2 mb-8">
-            <label className="text-[16px]" htmlFor="confirmPassword">
+            <label className="text-sm sm:text-[16px]" htmlFor="confirmPassword">
               Confirm Password <span className="text-red-500 font-bold">*</span>
             </label>
             <div className="relative">
@@ -128,21 +129,25 @@ const ResetPassword = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full h-12 cursor-pointer bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white text-[15px] font-medium rounded-xl"
+            className="w-full h-12 cursor-pointer bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm sm:text-[15px] font-medium rounded-xl"
           >
             {loading ? "Resetting..." : "Reset Password"}
           </button>
 
           <Link to="/">
-            <p className="text-gray-600 cursor-pointer text-center mt-[24px]">
+            <p className="text-gray-600 cursor-pointer text-center mt-6">
               Remember your password?{" "}
               <span className="text-[#7065F0]">Login</span>
             </p>
           </Link>
         </div>
 
-        <div className="mt-5 shadow-md">
-          <img src={image1} alt="Interior" className="" />
+        <div className="hidden md:block mt-5 shadow-md">
+          <img
+            src={image1}
+            alt="Interior"
+            className="max-h-[600px] object-cover rounded-xl"
+          />
         </div>
       </form>
     </main>
