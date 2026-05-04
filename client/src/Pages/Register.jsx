@@ -21,6 +21,7 @@ const Register = () => {
   } = useForm({ resolver: yupResolver(registerSchema) });
 
   const handleSignup = async (data) => {
+    console.log("form submitted", data);
     setLoading(true);
     setError(null);
     const result = await registerUser(
@@ -28,6 +29,7 @@ const Register = () => {
       data.password,
       data.confirmPassword,
     );
+    console.log("result", result);
     setLoading(false);
 
     if (result.success) {
@@ -43,7 +45,9 @@ const Register = () => {
   return (
     <main className=" bg-[#f5f5e8] h-screen  ">
       <form
-        onSubmit={handleSubmit(handleSignup)}
+        onSubmit={handleSubmit(handleSignup, (errors) =>
+          console.log("validation errors", errors),
+        )}
         className=" layout  flex flex-col gap-5 md:flex-row justify-between items-center "
       >
         <div className=" w-full md:max-w-113.25 md:max-h-149.5 ">

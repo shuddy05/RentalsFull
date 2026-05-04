@@ -30,6 +30,7 @@ api.interceptors.response.use(
 
     if (status === 500) {
       console.error("Server error:", message);
+      console.log("Full error response:", error.response.data);
     }
 
     return Promise.reject(error);
