@@ -75,7 +75,7 @@ const ForgetPassword = () => {
           </Link>
         </div>
 
-        <div className="hidden md:block mt-5 shadow-md">
+        <div className="mt-5 shadow-md">
           <img
             src={image1}
             alt="Interior"
