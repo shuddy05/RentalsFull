@@ -12,6 +12,11 @@ const ForgetPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!email) {
+      setError("Please enter your email");
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
