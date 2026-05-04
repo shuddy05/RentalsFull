@@ -65,11 +65,46 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const forgotPassword = async (email) => {
+    try {
+      const res = await api.post("/auth/forgot-password", { email });
+      return { success: true, message: res.data.message };
+    } catch (error) {
+      return { success: false, message: handleAuthError(error) };
+    }
+  };
+
+  const verifyOTP = async (email, otp) => {
+    try {
+      const res = await api.post("/auth/verify-otp", { email, otp });
+      return { success: true, message: res.data.message };
+    } catch (error) {
+      return { success: false, message: handleAuthError(error) };
+    }
+  };
+
+  const resetPassword = async (email, otp, password, confirmPassword) => {
+    try {
+      const res = await api.post("/auth/reset-password", {
+        email,
+        otp,
+        password,
+        confirmPassword,
+      });
+      return { success: true, message: res.data.message };
+    } catch (error) {
+      return { success: false, message: handleAuthError(error) };
+    }
+  };
+
   const contextdata = {
     user,
     loading,
     register,
     login,
+    forgotPassword,
+    verifyOTP,
+    resetPassword,
   };
   return (
     <AuthContext.Provider value={contextdata}>{children}</AuthContext.Provider>

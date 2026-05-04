@@ -17,7 +17,18 @@ const userSchema = new mongoose.Schema(
       minlength: 6,
       select: false,
     },
+
+    resetOTP: {
+      type: String,
+      default: null,
+    },
+
+    resetOTPExpire: {
+      type: Date,
+      default: null,
+    },
   },
+
   { timestamps: true },
 );
 
