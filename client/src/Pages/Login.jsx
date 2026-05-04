@@ -6,9 +6,14 @@ import logo from "../assets/images/logo.png";
 import { loginSchema } from "../utils/formvalidation";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -16,46 +21,49 @@ const Login = () => {
   } = useForm({ resolver: yupResolver(loginSchema) });
 
   const [showPassword, setShowPassword] = useState(false);
-  const handleLogin = (data) => {
-    console.log(data);
-    navigate("/home");
+
+  const handleLogin = async (data) => {
+    setLoading(true);
+    setError(null);
+    const result = await login(data.email, data.password);
+    setLoading(false);
+
+    if (result.success) {
+      navigate("/home");
+    } else {
+      setError(result.message);
+    }
   };
 
   return (
-    <main className=" bg-[#f5f5e8] h-screen  ">
+    <main className="bg-[#f5f5e8] h-screen">
       <form
         onSubmit={handleSubmit(handleLogin)}
-        className=" layout  flex flex-col gap-5 md:flex-row justify-between items-center "
+        className="layout flex flex-col gap-5 md:flex-row justify-between items-center"
       >
-        <div className=" w-full md:max-w-113.25 md:max-h-149.5 ">
+        <div className="w-full md:max-w-113.25 md:max-h-149.5">
           <h1 className="text-[32px] font-bold">Login</h1>
           <p className="text-[16px] text-gray-500 mb-6">
-            Enter you details to signin your account
+            Enter your details to signin your account
           </p>
 
           <div className="flex flex-col gap-3">
             <label className="text-[16px]" htmlFor="email">
-              {" "}
-              Email <span className="text-red-500 font-bold text-xl ">*</span>
+              Email <span className="text-red-500 font-bold text-xl">*</span>
             </label>
             <input
               type="email"
               placeholder="Enter email"
               {...register("email")}
               className={`w-full h-12 px-4 pr-11 border rounded-xl text-sm outline-none bg-white
-    ${
-      errors.email
-        ? "border-red-500 focus:border-red-500"
-        : "border-gray-300 focus:border-blue-500"
-    }`}
+                ${errors.email ? "border-red-500 focus:border-red-500" : "border-gray-300 focus:border-blue-500"}`}
             />
           </div>
           <small className="text-red-500">{errors.email?.message}</small>
-          <div className="flex flex-col gap-3 ">
+
+          <div className="flex flex-col gap-3">
             <label className="text-[16px]" htmlFor="password">
-              {" "}
-              Password
-              <span className="text-red-500 font-bold text-xl "> *</span>{" "}
+              Password <span className="text-red-500 font-bold text-xl">*</span>
             </label>
             <div className="relative">
               <input
@@ -64,47 +72,44 @@ const Login = () => {
                 {...register("password")}
                 placeholder="Enter your password"
                 className={`w-full h-12 px-4 pr-11 border rounded-xl text-sm outline-none bg-white
-    ${
-      errors.password
-        ? "border-red-500 focus:border-red-500"
-        : "border-gray-300 focus:border-blue-500"
-    }`}
+                  ${errors.password ? "border-red-500 focus:border-red-500" : "border-gray-300 focus:border-blue-500"}`}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer "
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer"
               >
                 {showPassword ? <EyeOff size={17} /> : <Eye size={17} />}
               </button>
             </div>
           </div>
           <small className="text-red-500">{errors.password?.message}</small>
+
+          {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+
           <div className="mt-4">
-            <Link
-              to="/forgot-password"
-              className="text-blue-600 text-[14px]   "
-            >
+            <Link to="/forgot-password" className="text-blue-600 text-[14px]">
               Forget password?
             </Link>
           </div>
 
           <button
             type="submit"
-            className="mt-[48px] w-full h-12 bg-blue-600 hover:bg-blue-700 text-white text-[15px] font-medium rounded-xl"
+            disabled={loading}
+            className="mt-[48px] w-full h-12 bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white text-[15px] font-medium rounded-xl"
           >
-            Login
+            {loading ? "Logging in..." : "Login"}
           </button>
 
           <Link to="/register">
-            <p className="text-gray-600  cursor-pointer text-center mt-[24px]">
+            <p className="text-gray-600 cursor-pointer text-center mt-[24px]">
               Don't have account?{" "}
               <span className="text-[#7065F0]">Sign Up</span>
             </p>
           </Link>
         </div>
 
-        <div className=" mt-5  shadow-md">
+        <div className="mt-5 shadow-md">
           <img src={image1} alt="Interior" className="" />
         </div>
       </form>

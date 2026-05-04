@@ -29,5 +29,3 @@ const startServer = async () => {
 };
 startServer();
 
-// name: horlabodehyibrahim_db_user;
-// password: t33C4hqzzvFbiio4;

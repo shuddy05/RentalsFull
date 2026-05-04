@@ -6,18 +6,35 @@ import logo from "../assets/images/logo.png";
 import { registerSchema } from "../utils/formvalidation";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useAuth } from "../context/AuthContext";
 
 const Register = () => {
+  const { register: registerUser } = useAuth();
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(registerSchema) });
 
-  const handleSignup = (data) => {
-    console.log(data);
-    navigate("/home");
+  const handleSignup = async (data) => {
+    setLoading(true);
+    setError(null);
+    const result = await registerUser(
+      data.email,
+      data.password,
+      data.confirmPassword,
+    );
+    setLoading(false);
+
+    if (result.success) {
+      navigate("/home");
+    } else {
+      setError(result.message);
+    }
   };
 
   const [showPassword, setShowPassword] = useState(false);
@@ -105,17 +122,20 @@ const Register = () => {
               {errors.confirmPassword?.message}
             </small>
           </div>
+          {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
 
           <button
             type="submit"
+            disabled={loading}
             className="w-full h-12 cursor-pointer bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white text-[15px] font-medium rounded-xl"
           >
-            Sign Up
+            {loading ? "Signing up..." : "Signup"}
           </button>
 
           <Link to="/">
             <p className="text-gray-600  cursor-pointer text-center mt-[24px]">
-              Don't have account? <span className="text-[#7065F0]">Login</span>
+              Already have account?{" "}
+              <span className="text-[#7065F0]">Login</span>
             </p>
           </Link>
         </div>
