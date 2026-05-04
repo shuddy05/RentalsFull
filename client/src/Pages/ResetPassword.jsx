@@ -46,7 +46,6 @@ const ResetPassword = () => {
       data.confirmPassword,
     );
     setLoading(false);
-
     if (result.success) {
       navigate("/");
     } else {
@@ -58,7 +57,7 @@ const ResetPassword = () => {
     <main className="min-h-screen bg-[#f5f5e8]">
       <form
         onSubmit={handleSubmit(handleReset)}
-        className="layout flex flex-col gap-8 md:flex-row justify-between items-center min-h-screen py-10"
+        className="layout flex flex-col md:flex-row justify-between items-center gap-8 min-h-screen py-10"
       >
         <div className="w-full md:max-w-[453px]">
           <h1 className="text-2xl sm:text-[32px] font-bold">
@@ -78,11 +77,7 @@ const ResetPassword = () => {
                 type={showPassword ? "text" : "password"}
                 {...register("password")}
                 placeholder="Enter your password"
-                className={`w-full h-12 px-4 pr-11 border bg-white rounded-xl text-sm outline-none ${
-                  errors.password
-                    ? "border-red-500 focus:border-red-500"
-                    : "border-gray-300 focus:border-blue-500"
-                }`}
+                className={`w-full h-12 px-4 pr-11 border bg-white rounded-xl text-sm outline-none ${errors.password ? "border-red-500 focus:border-red-500" : "border-gray-300 focus:border-blue-500"}`}
               />
               <button
                 type="button"
@@ -105,11 +100,7 @@ const ResetPassword = () => {
                 type={showConfirmPassword ? "text" : "password"}
                 placeholder="Re-enter your password"
                 {...register("confirmPassword")}
-                className={`w-full h-12 px-4 pr-11 border bg-white rounded-xl text-sm outline-none ${
-                  errors.confirmPassword
-                    ? "border-red-500 focus:border-red-500"
-                    : "border-gray-300 focus:border-blue-500"
-                }`}
+                className={`w-full h-12 px-4 pr-11 border bg-white rounded-xl text-sm outline-none ${errors.confirmPassword ? "border-red-500 focus:border-red-500" : "border-gray-300 focus:border-blue-500"}`}
               />
               <button
                 type="button"
@@ -142,11 +133,11 @@ const ResetPassword = () => {
           </Link>
         </div>
 
-        <div className=" mt-5 shadow-md">
+        <div className="w-full md:w-1/2 flex justify-center items-center mt-6 md:mt-0">
           <img
             src={image1}
             alt="Interior"
-            className="max-h-[600px] object-cover rounded-xl"
+            className="w-full max-w-sm md:max-w-full rounded-xl object-cover shadow-md"
           />
         </div>
       </form>

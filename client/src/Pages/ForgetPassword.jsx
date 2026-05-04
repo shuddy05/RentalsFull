@@ -20,7 +20,6 @@ const ForgetPassword = () => {
     setError(null);
     const result = await forgotPassword(email);
     setLoading(false);
-
     if (result.success) {
       navigate("/verify-otp", { state: { email } });
     } else {
@@ -32,7 +31,7 @@ const ForgetPassword = () => {
     <main className="min-h-screen bg-[#f5f5e8]">
       <form
         onSubmit={handleSubmit}
-        className="layout flex flex-col gap-8 md:flex-row justify-between items-center min-h-screen py-10"
+        className="layout flex flex-col md:flex-row justify-between items-center gap-8 min-h-screen py-10"
       >
         <div className="w-full md:max-w-[453px]">
           <h1 className="text-2xl sm:text-[32px] font-bold">
@@ -75,11 +74,11 @@ const ForgetPassword = () => {
           </Link>
         </div>
 
-        <div className="mt-5 shadow-md">
+        <div className="w-full md:w-1/2 flex justify-center items-center mt-6 md:mt-0">
           <img
             src={image1}
             alt="Interior"
-            className="max-h-[600px] object-cover rounded-xl"
+            className="w-full max-w-sm md:max-w-full rounded-xl object-cover shadow-md"
           />
         </div>
       </form>
