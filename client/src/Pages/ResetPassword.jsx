@@ -57,7 +57,7 @@ const ResetPassword = () => {
     <main className="min-h-screen bg-[#f5f5e8]">
       <form
         onSubmit={handleSubmit(handleReset)}
-        className="layout flex flex-col md:flex-row justify-between items-center gap-8 min-h-screen py-10"
+        className="layout flex flex-col gap-5 md:flex-row justify-between items-center"
       >
         <div className="w-full md:max-w-[453px]">
           <h1 className="text-2xl sm:text-[32px] font-bold">
@@ -133,11 +133,11 @@ const ResetPassword = () => {
           </Link>
         </div>
 
-        <div className="w-full md:w-1/2 flex justify-center items-center mt-6 md:mt-0">
+        <div className="mt-5 shadow-md">
           <img
             src={image1}
             alt="Interior"
-            className="w-full max-w-sm md:max-w-full rounded-xl object-cover shadow-md"
+            className=""
           />
         </div>
       </form>
