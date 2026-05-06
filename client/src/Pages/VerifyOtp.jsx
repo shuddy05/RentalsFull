@@ -3,15 +3,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 import OtpInput from "react-otp-input";
 import logo from "../assets/images/reallogo.png";
 import shield from "../assets/images/carbon_security.svg";
-import { useAuth } from "../context/AuthContext";
+import api from "../api/axiosConfig";
+import handleAuthError from "../utils/handleError";
 
 const VerifyOtp = () => {
-  const { verifyOTP, forgotPassword } = useAuth();
   const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
   const [resending, setResending] = useState(false);
   const [error, setError] = useState(null);
-
   const navigate = useNavigate();
   const location = useLocation();
   const email = location.state?.email;
@@ -24,13 +23,14 @@ const VerifyOtp = () => {
     }
     setLoading(true);
     setError(null);
-    const result = await verifyOTP(email, otp);
-    setLoading(false);
 
-    if (result.success) {
+    try {
+      await api.post("/auth/verify-otp", { email, otp });
       navigate("/reset-password", { state: { email, otp } });
-    } else {
-      setError(result.message);
+    } catch (error) {
+      setError(handleAuthError(error));
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -38,10 +38,12 @@ const VerifyOtp = () => {
     setResending(true);
     setError(null);
     setOtp("");
-    const result = await forgotPassword(email);
-    setResending(false);
-    if (!result.success) {
-      setError(result.message);
+    try {
+      await api.post("/auth/forgot-password", { email });
+    } catch (error) {
+      setError(handleAuthError(error));
+    } finally {
+      setResending(false);
     }
   };
 

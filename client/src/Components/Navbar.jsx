@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useState, useRef, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { IoCloseOutline } from "react-icons/io5";
+import { FaUserCircle } from "react-icons/fa";
 import logo from "../assets/images/reallogo.png";
+import { useAuth } from "../context/AuthContext";
 
 const navLinks = [
   { label: "Home", path: "/home" },
@@ -14,7 +16,21 @@ const navLinks = [
 
 const Navbar = () => {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const { user, loading, logout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <header className="w-full bg-white border-b border-gray-100 sticky top-0 z-50">
@@ -40,20 +56,60 @@ const Navbar = () => {
           ))}
         </ul>
 
-        <div className="hidden lg:flex items-center gap-4">
-          <Link
-            to="/"
-            className="text-[16px] font-semibold text-[#7065F0] hover:opacity-80 transition-opacity"
-          >
-            Login
-          </Link>
-          <Link
-            to="/register"
-            className="text-[16px] font-semibold text-white bg-[#7065F0] hover:bg-[#5a51d4] transition-colors px-5 py-2.5 rounded-xl"
-          >
-            Sign up
-          </Link>
-        </div>
+        {!loading &&
+          (user ? (
+            <div
+              className="hidden lg:flex items-center gap-3 relative"
+              ref={dropdownRef}
+            >
+              <button
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+                className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
+              >
+                <FaUserCircle size={32} className="text-[#7065F0]" />
+                <span className="text-[16px] font-semibold text-gray-700">
+                  Hello, {user.email.split("@")[0]}
+                </span>
+                <span className="text-gray-400 text-sm">▾</span>
+              </button>
+
+              {dropdownOpen && (
+                <div className="absolute right-0 top-12 bg-white border border-gray-100 rounded-xl shadow-lg py-2 w-48 z-50">
+                  <Link
+                    to="/account"
+                    onClick={() => setDropdownOpen(false)}
+                    className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#7065F0] transition-colors"
+                  >
+                    Account Settings
+                  </Link>
+                  <button
+                    onClick={() => {
+                      logout();
+                      navigate("/");
+                    }}
+                    className="w-full text-left px-4 py-2.5 text-sm text-red-500 hover:bg-gray-50 transition-colors"
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="hidden lg:flex items-center gap-4">
+              <Link
+                to="/"
+                className="text-[16px] font-semibold text-[#7065F0] hover:opacity-80 transition-opacity"
+              >
+                Login
+              </Link>
+              <Link
+                to="/register"
+                className="text-[16px] font-semibold text-white bg-[#7065F0] hover:bg-[#5a51d4] transition-colors px-5 py-2.5 rounded-xl"
+              >
+                Sign up
+              </Link>
+            </div>
+          ))}
 
         <button
           onClick={() => setMenuOpen(!menuOpen)}
@@ -86,20 +142,45 @@ const Navbar = () => {
           ))}
 
           <div className="flex flex-col gap-3 pt-2 border-t border-gray-100">
-            <Link
-              to="/"
-              onClick={() => setMenuOpen(false)}
-              className="text-[16px] font-semibold text-[#7065F0] text-center py-2.5 border border-[#7065F0] rounded-xl hover:bg-purple-50 transition-colors"
-            >
-              Login
-            </Link>
-            <Link
-              to="/register"
-              onClick={() => setMenuOpen(false)}
-              className="text-[16px] font-semibold text-white bg-[#7065F0] text-center py-2.5 rounded-xl hover:bg-[#5a51d4] transition-colors"
-            >
-              Sign up
-            </Link>
+            {!loading &&
+              (user ? (
+                <>
+                  <Link
+                    to="/account"
+                    onClick={() => setMenuOpen(false)}
+                    className="text-[16px] font-medium text-gray-700 py-2 hover:text-[#7065F0] transition-colors"
+                  >
+                    Account Settings
+                  </Link>
+                  <button
+                    onClick={() => {
+                      logout();
+                      navigate("/");
+                      setMenuOpen(false);
+                    }}
+                    className="text-[16px] font-semibold text-red-500 text-center py-2.5 border border-red-400 rounded-xl hover:bg-red-50 transition-colors"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/"
+                    onClick={() => setMenuOpen(false)}
+                    className="text-[16px] font-semibold text-[#7065F0] text-center py-2.5 border border-[#7065F0] rounded-xl hover:bg-purple-50 transition-colors"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    to="/register"
+                    onClick={() => setMenuOpen(false)}
+                    className="text-[16px] font-semibold text-white bg-[#7065F0] text-center py-2.5 rounded-xl hover:bg-[#5a51d4] transition-colors"
+                  >
+                    Sign up
+                  </Link>
+                </>
+              ))}
           </div>
         </div>
       )}

@@ -5,7 +5,8 @@ import image1 from "../assets/images/log1.png";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useAuth } from "../context/AuthContext";
+import api from "../api/axiosConfig";
+import handleAuthError from "../utils/handleError";
 
 const schema = yup.object({
   password: yup
@@ -19,7 +20,6 @@ const schema = yup.object({
 });
 
 const ResetPassword = () => {
-  const { resetPassword } = useAuth();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -39,17 +39,19 @@ const ResetPassword = () => {
   const handleReset = async (data) => {
     setLoading(true);
     setError(null);
-    const result = await resetPassword(
-      email,
-      otp,
-      data.password,
-      data.confirmPassword,
-    );
-    setLoading(false);
-    if (result.success) {
+    const { password, confirmPassword } = data;
+    try {
+      await api.post("/auth/reset-password", {
+        email,
+        otp,
+        password,
+        confirmPassword,
+      });
       navigate("/");
-    } else {
-      setError(result.message);
+    } catch (error) {
+      setError(handleAuthError(error));
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -134,11 +136,7 @@ const ResetPassword = () => {
         </div>
 
         <div className="mt-5 shadow-md">
-          <img
-            src={image1}
-            alt="Interior"
-            className=""
-          />
+          <img src={image1} alt="Interior" className="" />
         </div>
       </form>
     </main>

@@ -93,3 +93,11 @@ export const getUser = async (req, res) => {
     });
   }
 };
+
+export const Logout = async (req, res) => {
+  try {
+    res.status(200).json({ message: "Logout Successfully" });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};

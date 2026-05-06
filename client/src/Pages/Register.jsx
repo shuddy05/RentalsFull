@@ -7,9 +7,11 @@ import { registerSchema } from "../utils/formvalidation";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAuth } from "../context/AuthContext";
+import api from "../api/axiosConfig";
+import handleAuthError from "../utils/handleError";
 
 const Register = () => {
-  const { register: registerUser } = useAuth();
+  const { fetchUser } = useAuth();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -21,21 +23,23 @@ const Register = () => {
   } = useForm({ resolver: yupResolver(registerSchema) });
 
   const handleSignup = async (data) => {
-    console.log("form submitted", data);
     setLoading(true);
     setError(null);
-    const result = await registerUser(
-      data.email,
-      data.password,
-      data.confirmPassword,
-    );
-    console.log("result", result);
-    setLoading(false);
 
-    if (result.success) {
+    try {
+      const { email, password, confirmPassword } = data;
+      const res = await api.post("/auth/register", {
+        email,
+        password,
+        confirmPassword,
+      });
+      localStorage.setItem("token", res.data.token);
+      await fetchUser();
       navigate("/home");
-    } else {
-      setError(result.message);
+    } catch (error) {
+      setError(handleAuthError(error));
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -45,9 +49,7 @@ const Register = () => {
   return (
     <main className=" bg-[#f5f5e8] h-screen  ">
       <form
-        onSubmit={handleSubmit(handleSignup, (errors) =>
-          console.log("validation errors", errors),
-        )}
+        onSubmit={handleSubmit(handleSignup)}
         className=" layout  flex flex-col gap-5 md:flex-row justify-between items-center "
       >
         <div className=" w-full md:max-w-113.25 md:max-h-149.5 ">

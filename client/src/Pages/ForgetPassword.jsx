@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import image1 from "../assets/images/log1.png";
-import { useAuth } from "../context/AuthContext";
-
+import api from "../api/axiosConfig";
+import handleAuthError from "../utils/handleError";
 const ForgetPassword = () => {
-  const { forgotPassword } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
@@ -18,12 +17,13 @@ const ForgetPassword = () => {
     }
     setLoading(true);
     setError(null);
-    const result = await forgotPassword(email);
-    setLoading(false);
-    if (result.success) {
+    try {
+      const res = await api.post("/auth/forgot-password", { email });
       navigate("/verify-otp", { state: { email } });
-    } else {
-      setError(result.message);
+    } catch (error) {
+      setError(handleAuthError(error));
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -75,11 +75,7 @@ const ForgetPassword = () => {
         </div>
 
         <div className="mt-5 shadow-md">
-          <img
-            src={image1}
-            alt="Interior"
-            className=""
-          />
+          <img src={image1} alt="Interior" className="" />
         </div>
       </form>
     </main>

@@ -7,12 +7,15 @@ import { loginSchema } from "../utils/formvalidation";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAuth } from "../context/AuthContext";
+import api from "../api/axiosConfig";
+import handleAuthError from "../utils/handleError";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { fetchUser } = useAuth();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     register,
@@ -20,18 +23,21 @@ const Login = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(loginSchema) });
 
-  const [showPassword, setShowPassword] = useState(false);
-
   const handleLogin = async (data) => {
     setLoading(true);
     setError(null);
-    const result = await login(data.email, data.password);
-    setLoading(false);
-
-    if (result.success) {
+    try {
+      const res = await api.post("/auth/login", {
+        email: data.email,
+        password: data.password,
+      });
+      localStorage.setItem("token", res.data.token);
+      await fetchUser();
       navigate("/home");
-    } else {
-      setError(result.message);
+    } catch (error) {
+      setError(handleAuthError(error));
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -96,7 +102,7 @@ const Login = () => {
           <button
             type="submit"
             disabled={loading}
-            className="mt-[48px] w-full h-12 bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white text-[15px] font-medium rounded-xl"
+            className="mt-[48px] w-full h-12 cursor-pointer bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white text-[15px] font-medium rounded-xl"
           >
             {loading ? "Logging in..." : "Login"}
           </button>

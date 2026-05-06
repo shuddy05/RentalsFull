@@ -1,8 +1,15 @@
 import React, { lazy, Suspense } from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import ScrollToTop from "./utils/ScrollToTop";
-import Navbar from "./Components/Navbar";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 
+const ScrollToTop = lazy(() => import("./utils/ScrollToTop"));
+const Navbar = lazy(() => import("./Components/Navbar"));
+const ProtectedRoute = lazy(() => import("./Components/ProtectedRoute"));
+const PublicRoute = lazy(() => import("./Components/PublicRoute"));
 const Login = lazy(() => import("./Pages/Login"));
 const Register = lazy(() => import("./Pages/Register"));
 const ForgotPassword = lazy(() => import("./Pages/ForgetPassword"));
@@ -36,7 +43,7 @@ const Layout = ({ children }) => {
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <Router>
       <ScrollToTop />
       <Layout>
         <Suspense fallback={<div>Loading...</div>}>
@@ -52,7 +59,7 @@ const App = () => {
           </Routes>
         </Suspense>
       </Layout>
-    </BrowserRouter>
+    </Router>
   );
 };
 
