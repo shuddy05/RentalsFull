@@ -17,12 +17,13 @@ const DetailedProperties = lazy(
   () => import("./Components/DetailedProperties"),
 );
 const Error404 = lazy(() => import("./Pages/Error404Page"));
+const Loading = lazy(() => import("./utils/Loading"));
 
 const App = () => {
   return (
     <BrowserRouter>
       <AuthProvider>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loading />}>
           <Routes>
             <Route element={<RootLayout />}>
               <Route
