@@ -24,13 +24,21 @@ api.interceptors.response.use(
     const message = error.response?.data?.message;
 
     if (status === 401) {
-      localStorage.removeItem("token");
-      window.location.href = "/login";
+      const isAuthRoute = [
+        "/auth/login",
+        "/auth/register",
+        "/auth/forgot-password",
+        "/auth/verify-otp",
+        "/auth/reset-password",
+      ].some((route) => error.config.url.includes(route));
+      if (!isAuthRoute) {
+        localStorage.removeItem("token");
+        window.location.href = "/";
+      }
     }
 
     if (status === 500) {
       console.error("Server error:", message);
-      console.log("Full error response:", error.response.data);
     }
 
     return Promise.reject(error);

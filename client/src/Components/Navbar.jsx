@@ -56,60 +56,61 @@ const Navbar = () => {
           ))}
         </ul>
 
-        {!loading &&
-          (user ? (
-            <div
-              className="hidden lg:flex items-center gap-3 relative"
-              ref={dropdownRef}
+        {loading ? (
+          <div className="hidden lg:block w-32 h-10" />
+        ) : user ? (
+          <div
+            className="hidden lg:flex items-center gap-3 relative"
+            ref={dropdownRef}
+          >
+            <button
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
             >
-              <button
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-                className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
-              >
-                <FaUserCircle size={32} className="text-[#7065F0]" />
-                <span className="text-[16px] font-semibold text-gray-700">
-                  Hello, {user.email.split("@")[0]}
-                </span>
-                <span className="text-gray-400 text-sm">▾</span>
-              </button>
+              <FaUserCircle size={32} className="text-[#7065F0]" />
+              <span className="text-[16px] font-semibold text-gray-700">
+                Hello, {user.email.split("@")[0]}
+              </span>
+              <span className="text-gray-400 text-sm">▾</span>
+            </button>
 
-              {dropdownOpen && (
-                <div className="absolute right-0 top-12 bg-white border border-gray-100 rounded-xl shadow-lg py-2 w-48 z-50">
-                  <Link
-                    to="/account"
-                    onClick={() => setDropdownOpen(false)}
-                    className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#7065F0] transition-colors"
-                  >
-                    Account Settings
-                  </Link>
-                  <button
-                    onClick={() => {
-                      logout();
-                      navigate("/");
-                    }}
-                    className="w-full text-left px-4 py-2.5 text-sm text-red-500 hover:bg-gray-50 transition-colors"
-                  >
-                    Logout
-                  </button>
-                </div>
-              )}
-            </div>
-          ) : (
-            <div className="hidden lg:flex items-center gap-4">
-              <Link
-                to="/"
-                className="text-[16px] font-semibold text-[#7065F0] hover:opacity-80 transition-opacity"
-              >
-                Login
-              </Link>
-              <Link
-                to="/register"
-                className="text-[16px] font-semibold text-white bg-[#7065F0] hover:bg-[#5a51d4] transition-colors px-5 py-2.5 rounded-xl"
-              >
-                Sign up
-              </Link>
-            </div>
-          ))}
+            {dropdownOpen && (
+              <div className="absolute right-0 top-12 bg-white border border-gray-100 rounded-xl shadow-lg py-2 w-48 z-50">
+                <Link
+                  to="/account"
+                  onClick={() => setDropdownOpen(false)}
+                  className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#7065F0] transition-colors"
+                >
+                  Account Settings
+                </Link>
+                <button
+                  onClick={() => {
+                    logout();
+                    navigate("/");
+                  }}
+                  className="w-full text-left px-4 py-2.5 text-sm text-red-500 hover:bg-gray-50 transition-colors"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="hidden lg:flex items-center gap-4">
+            <Link
+              to="/"
+              className="text-[16px] font-semibold text-[#7065F0] hover:opacity-80 transition-opacity"
+            >
+              Login
+            </Link>
+            <Link
+              to="/register"
+              className="text-[16px] font-semibold text-white bg-[#7065F0] hover:bg-[#5a51d4] transition-colors px-5 py-2.5 rounded-xl"
+            >
+              Sign up
+            </Link>
+          </div>
+        )}
 
         <button
           onClick={() => setMenuOpen(!menuOpen)}
