@@ -1,19 +1,18 @@
 import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
+  host: process.env.BREVO_HOST,
+  port: Number(process.env.BREVO_PORT),
   secure: false,
-  family: 4, 
   auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
+    user: process.env.BREVO_USER,
+    pass: process.env.BREVO_PASS,
   },
 });
 
 export const sendOTPEmail = async (email, otp) => {
   await transporter.sendMail({
-    from: `"Rentals" <${process.env.EMAIL_USER}>`,
+    from: `"Rentals" <${process.env.BREVO_USER}>`,
     to: email,
     subject: "Password Reset OTP",
     html: `
