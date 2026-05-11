@@ -1,42 +1,44 @@
 import React from "react";
 
-const Loading = ({ message = "Loading..." }) => {
+const Loading = () => {
   return (
-    <>
-      <style>{`
-        .loader {
-          width: 50px;
-          aspect-ratio: 1;
-          display: grid;
-          border-radius: 50%;
-          background:
-            linear-gradient(0deg, rgb(0 0 0/50%) 30%, #0000 0 70%, rgb(0 0 0/100%) 0) 50%/8% 100%,
-            linear-gradient(90deg, rgb(0 0 0/25%) 30%, #0000 0 70%, rgb(0 0 0/75%) 0) 50%/100% 8%;
-          background-repeat: no-repeat;
-          animation: l23 1s infinite steps(12);
-        }
-        .loader::before,
-        .loader::after {
-          content: "";
-          grid-area: 1/1;
-          border-radius: 50%;
-          background: inherit;
-          opacity: 0.915;
-          transform: rotate(30deg);
-        }
-        .loader::after {
-          opacity: 0.83;
-          transform: rotate(60deg);
-        }
-        @keyframes l23 {
-          100% { transform: rotate(1turn); }
-        }
-      `}</style>
-      <div className="min-h-screen flex items-center justify-center bg-[#10141e] gap-3">
-        <div className="loader"></div>
-        <span className="text-white ml-1.5">{message}</span>
+    <div className="bg-[#f5f5e8] min-h-screen animate-pulse">
+      {/* Navbar skeleton */}
+      <div className="flex items-center justify-between px-10 py-5">
+        <div className="h-6 w-28 bg-gray-300 rounded-md" />
+        <div className="flex gap-6">
+          {[...Array(5)].map((_, i) => (
+            <div key={i} className="h-4 w-16 bg-gray-300 rounded-md" />
+          ))}
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="h-9 w-9 bg-gray-300 rounded-full" />
+          <div className="h-4 w-32 bg-gray-300 rounded-md" />
+        </div>
       </div>
-    </>
+
+      {/* Hero skeleton */}
+      <div className="flex justify-between items-center px-10 mt-16">
+        <div className="flex flex-col gap-4 w-1/2">
+          <div className="h-10 w-3/4 bg-gray-300 rounded-md" />
+          <div className="h-10 w-2/4 bg-gray-300 rounded-md" />
+          <div className="h-4 w-3/4 bg-gray-300 rounded-md" />
+          <div className="h-4 w-2/4 bg-gray-300 rounded-md" />
+          <div className="h-12 w-40 bg-gray-300 rounded-xl mt-4" />
+        </div>
+        <div className="h-80 w-[45%] bg-gray-300 rounded-2xl" />
+      </div>
+
+      {/* Stats skeleton */}
+      <div className="flex gap-10 px-10 mt-16">
+        {[...Array(3)].map((_, i) => (
+          <div key={i} className="flex flex-col gap-2">
+            <div className="h-8 w-20 bg-gray-300 rounded-md" />
+            <div className="h-4 w-24 bg-gray-300 rounded-md" />
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 

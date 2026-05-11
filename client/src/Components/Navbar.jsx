@@ -5,7 +5,8 @@ import { IoCloseOutline } from "react-icons/io5";
 import { FaUserCircle } from "react-icons/fa";
 import logo from "../assets/images/reallogo.png";
 import { useAuth } from "../context/AuthContext";
-
+import arrowDown from "../assets/images/Vector.png";
+import photo from "../assets/images/newpass.jpg";
 const navLinks = [
   { label: "Home", path: "/home" },
   { label: "Properties", path: "/properties" },
@@ -56,7 +57,7 @@ const Navbar = () => {
           ))}
         </ul>
 
-        {loading ? (
+        {loading && !user ? (
           <div className="hidden lg:block w-32 h-10" />
         ) : user ? (
           <div
@@ -67,11 +68,17 @@ const Navbar = () => {
               onClick={() => setDropdownOpen(!dropdownOpen)}
               className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
             >
-              <FaUserCircle size={32} className="text-[#7065F0]" />
+              <div className="rounded-full w-[45px] h-[45px] ">
+                <img
+                  src={photo}
+                  alt=""
+                  className="rounded-full w-full h-full object-cover"
+                />
+              </div>
               <span className="text-[16px] font-semibold text-gray-700">
                 Hello, {user.email.split("@")[0]}
               </span>
-              <span className="text-gray-400 text-sm">▾</span>
+              <img src={arrowDown} alt="" />
             </button>
 
             {dropdownOpen && (
@@ -79,16 +86,30 @@ const Navbar = () => {
                 <Link
                   to="/account"
                   onClick={() => setDropdownOpen(false)}
-                  className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#7065F0] transition-colors"
+                  className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 "
                 >
                   Account Settings
+                </Link>
+                <Link
+                  to="/sellerMode"
+                  onClick={() => setDropdownOpen(false)}
+                  className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 "
+                >
+                  Swith to Seller Mode
+                </Link>
+                <Link
+                  to="/help"
+                  onClick={() => setDropdownOpen(false)}
+                  className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 "
+                >
+                  Help
                 </Link>
                 <button
                   onClick={() => {
                     logout();
                     navigate("/");
                   }}
-                  className="w-full text-left px-4 py-2.5 text-sm text-red-500 hover:bg-gray-50 transition-colors"
+                  className="w-full cursor-pointer text-left px-4 py-2.5 text-sm text-red-500 hover:bg-gray-50 transition-colors"
                 >
                   Logout
                 </button>
