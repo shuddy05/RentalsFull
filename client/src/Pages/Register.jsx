@@ -50,7 +50,7 @@ const Register = () => {
     <main className=" bg-[#f5f5e8] h-screen  ">
       <form
         onSubmit={handleSubmit(handleSignup)}
-        className=" layout  flex flex-col gap-5 md:flex-row justify-between items-center "
+        className=" layout flex justify-center lg:flex-row lg:justify-between items-center "
       >
         <div className=" w-full md:max-w-113.25 md:max-h-149.5 ">
           <h1 className="text-[32px] font-bold">Sign Up</h1>
@@ -146,7 +146,7 @@ const Register = () => {
           </Link>
         </div>
 
-        <div className=" mt-5  shadow-md">
+        <div className=" hidden lg:flex mt-5 shadow-md">
           <img src={image1} alt="Interior" className="" />
         </div>
       </form>

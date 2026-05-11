@@ -31,7 +31,7 @@ const ForgetPassword = () => {
     <main className="min-h-screen bg-[#f5f5e8]">
       <form
         onSubmit={handleSubmit}
-        className="layout flex flex-col gap-5 md:flex-row justify-between items-center"
+        className="layout flex justify-center lg:flex-row lg:justify-between items-center"
       >
         <div className="w-full md:max-w-[453px]">
           <h1 className="text-2xl sm:text-[32px] font-bold">
@@ -74,7 +74,7 @@ const ForgetPassword = () => {
           </Link>
         </div>
 
-        <div className="mt-5 shadow-md">
+        <div className=" hidden lg:flex mt-5 shadow-md">
           <img src={image1} alt="Interior" className="" />
         </div>
       </form>
