@@ -9,7 +9,7 @@ const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 export const sendOTPEmail = async (email, otp) => {
   const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
   sendSmtpEmail.to = [{ email }];
-  sendSmtpEmail.sender = { email: process.env.BREVO_USER, name: "Rentals };
+  sendSmtpEmail.sender = { email: process.env.BREVO_USER, name: "Rentals" };
   sendSmtpEmail.subject = "Password Reset OTP";
   sendSmtpEmail.htmlContent = `
     <div style="font-family: Arial, sans-serif; max-width: 500px; margin: 0 auto;">
