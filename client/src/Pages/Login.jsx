@@ -45,7 +45,7 @@ const Login = () => {
     <main className="bg-[#f5f5e8] h-screen">
       <form
         onSubmit={handleSubmit(handleLogin)}
-        className="layout flex justify-center lg:flex-row lg:justify-between items-center"
+        className="layout h-screen flex justify-center lg:flex-row lg:justify-between items-center"
       >
         <div className="w-full md:max-w-113.25 md:max-h-149.5">
           <h1 className="text-[32px] font-bold">Login</h1>
