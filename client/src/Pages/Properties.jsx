@@ -29,10 +29,14 @@ const NoMatchFound = ({ onClear }) => (
 
 const Properties = () => {
   const [activeFilter, setActiveFilter] = useState("All");
-  const [showNoMatch, setShowNoMatch] = useState(false);
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const [searchType, setSearchType] = useState("");
+  const [searchBudget, setSearchBudget] = useState("");
+  const [searchLocation, setSearchLocation] = useState("");
+  const [searched, setSearched] = useState(false);
 
   useEffect(() => {
     const fetchProperties = async () => {
@@ -48,12 +52,42 @@ const Properties = () => {
     fetchProperties();
   }, []);
 
+  const handleSearch = () => {
+    if (!searchType && !searchBudget && !searchLocation) return;
+    setSearched(true);
+    setActiveFilter("All");
+  };
+
+  const handleClear = () => {
+    setSearchType("");
+    setSearchBudget("");
+    setSearchLocation("");
+    setSearched(false);
+    setActiveFilter("All");
+  };
+
   const filteredProperties = properties.filter((property) => {
-    if (activeFilter === "All") return true;
-    if (activeFilter === "For Rent") return property.status === "for rent";
-    if (activeFilter === "For Sale") return property.status === "for sale";
-    return true;
+    const matchesStatus =
+      activeFilter === "All" ||
+      (activeFilter === "For Rent" && property.status === "for rent") ||
+      (activeFilter === "For Sale" && property.status === "for sale");
+
+    const matchesType = searchType
+      ? property.type?.toLowerCase() === searchType.toLowerCase()
+      : true;
+
+    const matchesBudget = searchBudget
+      ? property.price <= Number(searchBudget)
+      : true;
+
+    const matchesLocation = searchLocation
+      ? property.location?.toLowerCase().includes(searchLocation.toLowerCase())
+      : true;
+
+    return matchesStatus && matchesType && matchesBudget && matchesLocation;
   });
+
+  const showNoMatch = searched && filteredProperties.length === 0;
 
   if (loading)
     return (
@@ -88,11 +122,16 @@ const Properties = () => {
                 <label className="block text-gray-800 font-semibold text-sm sm:text-base mb-1">
                   Property Type
                 </label>
-                <select className="w-full h-11 sm:h-12 px-4 rounded-xl border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm sm:text-base">
-                  <option>Apartment</option>
-                  <option>House</option>
-                  <option>Villa</option>
-                  <option>Office Space</option>
+                <select
+                  value={searchType}
+                  onChange={(e) => setSearchType(e.target.value)}
+                  className="w-full h-11 sm:h-12 px-4 rounded-xl border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm sm:text-base"
+                >
+                  <option value="">All Types</option>
+                  <option value="Apartment">Apartment</option>
+                  <option value="House">House</option>
+                  <option value="Villa">Villa</option>
+                  <option value="Office Space">Office Space</option>
                 </select>
               </div>
 
@@ -103,6 +142,8 @@ const Properties = () => {
                 <input
                   type="number"
                   placeholder="Enter Budget"
+                  value={searchBudget}
+                  onChange={(e) => setSearchBudget(e.target.value)}
                   className="w-full h-11 sm:h-12 px-4 rounded-xl border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm sm:text-base"
                 />
               </div>
@@ -111,16 +152,21 @@ const Properties = () => {
                 <label className="block text-gray-800 font-semibold text-sm sm:text-base mb-1">
                   Location
                 </label>
-                <select className="w-full h-11 sm:h-12 px-4 rounded-xl border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm sm:text-base">
-                  <option>Lagos</option>
-                  <option>Abuja</option>
-                  <option>Port Harcourt</option>
-                  <option>Ibadan</option>
+                <select
+                  value={searchLocation}
+                  onChange={(e) => setSearchLocation(e.target.value)}
+                  className="w-full h-11 sm:h-12 px-4 rounded-xl border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm sm:text-base"
+                >
+                  <option value="">All Locations</option>
+                  <option value="Lagos">Lagos</option>
+                  <option value="Abuja">Abuja</option>
+                  <option value="Port Harcourt">Port Harcourt</option>
+                  <option value="Ibadan">Ibadan</option>
                 </select>
               </div>
 
               <button
-                onClick={() => setShowNoMatch(true)}
+                onClick={handleSearch}
                 className="h-11 sm:h-12 w-full sm:col-span-2 md:col-span-1 cursor-pointer rounded-xl bg-indigo-600 text-white font-semibold text-sm sm:text-base hover:bg-indigo-700 transition-colors"
               >
                 Search For Property
@@ -138,7 +184,10 @@ const Properties = () => {
               {["All", "For Rent", "For Sale"].map((filter) => (
                 <button
                   key={filter}
-                  onClick={() => setActiveFilter(filter)}
+                  onClick={() => {
+                    setActiveFilter(filter);
+                    setSearched(false);
+                  }}
                   className={`text-sm sm:text-[18px] px-3 sm:px-4 py-2 cursor-pointer flex-1 sm:flex-none sm:w-[119px] rounded-lg ${
                     activeFilter === filter
                       ? "text-white bg-[#7065F0]"
@@ -152,7 +201,7 @@ const Properties = () => {
           </div>
 
           {showNoMatch ? (
-            <NoMatchFound onClear={() => setShowNoMatch(false)} />
+            <NoMatchFound onClear={handleClear} />
           ) : (
             <>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
