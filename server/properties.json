@@ -41,6 +41,7 @@
     "price": 18700000,
     "status": "For Sale",
     "rooms": "4 Bedrooms",
+    "type": "House",
     "bath": "5 Bathrooms",
     "images": [
       "https://images.unsplash.com/photo-1685514823717-7e1ff6ee0563?auto=format&fit=crop&w=800&q=75"

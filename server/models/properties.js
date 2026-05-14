@@ -20,6 +20,11 @@ const propertySchema = new mongoose.Schema(
       enum: ["For Sale", "For Rent"],
       required: true,
     },
+    type: {
+      type: String,
+      enum: ["Apartment", "House", "Villa", "Office Space"],
+      required: true,
+    },
     rooms: {
       type: String,
       required: true,
@@ -28,11 +33,6 @@ const propertySchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    type: {
-      type: String,
-      required: true,
-    },
-
     images: {
       type: [String],
       required: true,
