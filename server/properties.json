@@ -1,0 +1,134 @@
+[
+  {
+    "title": "Ocean Breeze Duplex",
+    "location": "Lekki, Lagos, Nigeria",
+    "price": 12500000,
+    "status": "for sale",
+    "rooms": "5 Bedrooms",
+    "bath": "6 Bathrooms",
+    "images": [
+      "https://images.unsplash.com/photo-1591474200742-8e512e6f98f8?auto=format&fit=crop&w=800&q=75"
+    ]
+  },
+  {
+    "title": "Maple Garden Apartment",
+    "location": "Yaba, Lagos, Nigeria",
+    "price": 3800000,
+    "status": "for rent",
+    "rooms": "3 Bedrooms",
+    "bath": "2 Bathrooms",
+    "images": [
+      "https://images.unsplash.com/photo-1660361339436-ddd4b85372da?auto=format&fit=crop&w=800&q=75"
+    ]
+  },
+  {
+    "title": "Sunset Penthouse",
+    "location": "Victoria Island, Lagos, Nigeria",
+    "price": 25000000,
+    "status": "for sale",
+    "rooms": "6 Bedrooms",
+    "bath": "7 Bathrooms",
+    "images": [
+      "https://images.unsplash.com/photo-1627141234469-24711efb373c?auto=format&fit=crop&w=800&q=75"
+    ]
+  },
+  {
+    "title": "Royal Palm Estate",
+    "location": "Ajah, Lagos, Nigeria",
+    "price": 18700000,
+    "status": "for sale",
+    "rooms": "4 Bedrooms",
+    "bath": "5 Bathrooms",
+    "images": [
+      "https://images.unsplash.com/photo-1685514823717-7e1ff6ee0563?auto=format&fit=crop&w=800&q=75"
+    ]
+  },
+  {
+    "title": "Crystal Heights Villa",
+    "location": "Ikeja, Lagos, Nigeria",
+    "price": 9200000,
+    "status": "for rent",
+    "rooms": "5 Bedrooms",
+    "bath": "4 Bathrooms",
+    "images": [
+      "https://images.unsplash.com/photo-1660361338517-8c8fbb3ac264?auto=format&fit=crop&w=800&q=75"
+    ]
+  },
+  {
+    "title": "Emerald Court",
+    "location": "Surulere, Lagos, Nigeria",
+    "price": 6300000,
+    "status": "for sale",
+    "rooms": "3 Bedrooms",
+    "bath": "3 Bathrooms",
+    "images": [
+      "https://images.unsplash.com/photo-1721815693498-cc28507c0ba2?auto=format&fit=crop&w=800&q=75"
+    ]
+  },
+  {
+    "title": "Golden Nest Apartment",
+    "location": "Festac, Lagos, Nigeria",
+    "price": 4600000,
+    "status": "for rent",
+    "rooms": "2 Bedrooms",
+    "bath": "2 Bathrooms",
+    "images": [
+      "https://images.unsplash.com/photo-1628144688607-c373d8e3f31b?auto=format&fit=crop&w=800&q=75"
+    ]
+  },
+  {
+    "title": "Skyline Mansion",
+    "location": "Ikoyi, Lagos, Nigeria",
+    "price": 35000000,
+    "status": "for sale",
+    "rooms": "7 Bedrooms",
+    "bath": "8 Bathrooms",
+    "images": [
+      "https://images.unsplash.com/photo-1663923330731-d2c5586aefb7?auto=format&fit=crop&w=800&q=75"
+    ]
+  },
+  {
+    "title": "Harmony Residency",
+    "location": "Maryland, Lagos, Nigeria",
+    "price": 5700000,
+    "status": "for rent",
+    "rooms": "4 Bedrooms",
+    "bath": "3 Bathrooms",
+    "images": [
+      "https://images.unsplash.com/photo-1777115471024-b0a140087e60?auto=format&fit=crop&w=800&q=75"
+    ]
+  },
+  {
+    "title": "Silver Oak Terrace",
+    "location": "Magodo, Lagos, Nigeria",
+    "price": 7900000,
+    "status": "for sale",
+    "rooms": "5 Bedrooms",
+    "bath": "4 Bathrooms",
+    "images": [
+      "https://images.unsplash.com/photo-1591474200742-8e512e6f98f8?auto=format&fit=crop&w=800&q=75"
+    ]
+  },
+  {
+    "title": "Prestige Luxury Home",
+    "location": "Chevron, Lagos, Nigeria",
+    "price": 11400000,
+    "status": "for sale",
+    "rooms": "6 Bedrooms",
+    "bath": "5 Bathrooms",
+    "images": [
+      "https://images.unsplash.com/photo-1660361339436-ddd4b85372da?auto=format&fit=crop&w=800&q=75"
+    ]
+  },
+  {
+    "title": "Blue Haven Suites",
+    "location": "Ogudu, Lagos, Nigeria",
+    "price": 3200000,
+    "status": "for rent",
+    "rooms": "2 Bedrooms",
+    "bath": "1 Bathroom",
+    "images": [
+      "https://images.unsplash.com/photo-1627141234469-24711efb373c?auto=format&fit=crop&w=800&q=75"
+    ]
+  }
+]

@@ -66,7 +66,7 @@ const ForgetPassword = () => {
             {loading ? "Sending..." : "Send Code"}
           </button>
 
-          <Link to="/">
+          <Link to="/login">
             <p className="text-gray-600 cursor-pointer text-center mt-6">
               Remember your password{" "}
               <span className="text-[#7065F0]">Sign In</span>

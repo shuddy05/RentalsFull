@@ -33,7 +33,7 @@ api.interceptors.response.use(
       ].some((route) => error.config.url.includes(route));
       if (!isAuthRoute) {
         localStorage.removeItem("token");
-        window.location.href = "/";
+        window.location.href = "/login";
       }
     }
 

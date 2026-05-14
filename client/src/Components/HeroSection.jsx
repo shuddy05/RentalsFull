@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const HeroSection = () => {
   return (
-    <main className="min-h-screen bg-[#f5f5e8] flex items-center">
+    <main className="h-screen bg-[#f5f5e8] flex items-center">
       <div className="layout grid lg:grid-cols-2 gap-12 items-stretch order-2 lg:order-1 ">
         <div className="flex flex-col justify-between h-full">
           <div>

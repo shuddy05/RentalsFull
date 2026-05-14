@@ -37,3 +37,21 @@ export const loginSchema = yup.object().shape({
       "Password must contain at least one special character",
     ),
 });
+
+export const resetPasswordSchema = yup.object().shape({
+  password: yup
+    .string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password")], "Passwords must match")
+    .required("Confirm password is required")
+    .min(6, "Password must be at least 6 characters")
+    .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
+    .matches(/[0-9]/, "Password must contain at least one number")
+    .matches(
+      /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/,
+      "Password must contain at least one special character",
+    ),
+});

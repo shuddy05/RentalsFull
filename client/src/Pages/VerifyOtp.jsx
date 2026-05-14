@@ -60,7 +60,7 @@ const VerifyOtp = () => {
             <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-[68px] md:h-[68px] rounded-full bg-[#7065F0] flex justify-center items-center">
               <img
                 src={shield}
-                alt="shield"
+                alt=""
                 className="w-6 h-6 sm:w-7 sm:h-7"
               />
             </div>

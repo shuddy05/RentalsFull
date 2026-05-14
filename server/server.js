@@ -2,16 +2,17 @@ import "dotenv/config";
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+import propertyRouter from "./routes/propertiesRouter.js";
 import { router as authRouter } from "./routes/authRouter.js";
-
 const app = express();
 
-const port = process.env.PORT || 1015;
+const port = Number(process.env.PORT) || 1015;
 
 app.use(cors());
 app.use(express.json());
 
 app.use("/auth", authRouter);
+app.use("/api/properties", propertyRouter);
 
 const startServer = async () => {
   try {

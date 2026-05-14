@@ -35,7 +35,7 @@ const Register = () => {
       });
       localStorage.setItem("token", res.data.token);
       await fetchUser();
-      navigate("/home");
+      navigate("/");
     } catch (error) {
       setError(handleAuthError(error));
     } finally {
@@ -138,7 +138,7 @@ const Register = () => {
             {loading ? "Signing up..." : "Signup"}
           </button>
 
-          <Link to="/">
+          <Link to="/login">
             <p className="text-gray-600  cursor-pointer text-center mt-[24px]">
               Already have account?{" "}
               <span className="text-[#7065F0]">Login</span>

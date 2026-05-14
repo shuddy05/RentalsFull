@@ -26,73 +26,20 @@ const App = () => {
         <Suspense fallback={<Loading />}>
           <Routes>
             <Route element={<RootLayout />}>
-              <Route
-                path="/home"
-                element={
-                  <ProtectedRoute>
-                    <Home />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/properties"
-                element={
-                  <ProtectedRoute>
-                    <Properties />
-                  </ProtectedRoute>
-                }
-              />
+              <Route path="/" element={<Home />} />
+              <Route path="/properties" element={<Properties />} />
               <Route
                 path="/detail-properties"
-                element={
-                  <ProtectedRoute>
-                    <DetailedProperties />
-                  </ProtectedRoute>
-                }
+                element={<DetailedProperties />}
               />
             </Route>
 
             <Route element={<AuthLayout />}>
-              <Route
-                path="/"
-                element={
-                  <PublicRoute>
-                    <Login />
-                  </PublicRoute>
-                }
-              />
-              <Route
-                path="/register"
-                element={
-                  <PublicRoute>
-                    <Register />
-                  </PublicRoute>
-                }
-              />
-              <Route
-                path="/forgot-password"
-                element={
-                  <PublicRoute>
-                    <ForgotPassword />
-                  </PublicRoute>
-                }
-              />
-              <Route
-                path="/verify-otp"
-                element={
-                  <PublicRoute>
-                    <VerifyOTP />
-                  </PublicRoute>
-                }
-              />
-              <Route
-                path="/reset-password"
-                element={
-                  <PublicRoute>
-                    <ResetPassword />
-                  </PublicRoute>
-                }
-              />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/verify-otp" element={<VerifyOTP />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
             </Route>
 
             <Route path="*" element={<Error404 />} />

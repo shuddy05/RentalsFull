@@ -8,7 +8,7 @@ import { useAuth } from "../context/AuthContext";
 import arrowDown from "../assets/images/Vector.png";
 import photo from "../assets/images/newpass.jpg";
 const navLinks = [
-  { label: "Home", path: "/home" },
+  { label: "Home", path: "/" },
   { label: "Properties", path: "/properties" },
   { label: "About Us", path: "/about" },
   { label: "List Properties", path: "/detail-properties" },
@@ -36,7 +36,7 @@ const Navbar = () => {
   return (
     <header className="w-full bg-white border-b border-gray-100 sticky top-0 z-50">
       <nav className="layout flex items-center justify-between p-4">
-        <Link to="/home" className="flex items-center gap-2 shrink-0">
+        <Link to="/" className="flex items-center gap-2 shrink-0">
           <img src={logo} alt="Estatery Logo" className="h-9 w-auto" />
         </Link>
 
@@ -107,7 +107,7 @@ const Navbar = () => {
                 <button
                   onClick={() => {
                     logout();
-                    navigate("/");
+                    navigate("/login");
                   }}
                   className="w-full cursor-pointer text-left px-4 py-2.5 text-sm text-red-500 hover:bg-gray-50 transition-colors"
                 >
@@ -119,7 +119,7 @@ const Navbar = () => {
         ) : (
           <div className="hidden lg:flex items-center gap-4">
             <Link
-              to="/"
+              to="/login"
               className="text-[16px] font-semibold text-[#7065F0] hover:opacity-80 transition-opacity"
             >
               Login
@@ -177,7 +177,7 @@ const Navbar = () => {
                   <button
                     onClick={() => {
                       logout();
-                      navigate("/");
+                      navigate("/login");
                       setMenuOpen(false);
                     }}
                     className="text-[16px] font-semibold text-red-500 text-center py-2.5 border border-red-400 rounded-xl hover:bg-red-50 transition-colors"
@@ -188,7 +188,7 @@ const Navbar = () => {
               ) : (
                 <>
                   <Link
-                    to="/"
+                    to="/login"
                     onClick={() => setMenuOpen(false)}
                     className="text-[16px] font-semibold text-[#7065F0] text-center py-2.5 border border-[#7065F0] rounded-xl hover:bg-purple-50 transition-colors"
                   >

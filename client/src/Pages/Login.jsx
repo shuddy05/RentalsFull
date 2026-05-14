@@ -33,7 +33,7 @@ const Login = () => {
       });
       localStorage.setItem("token", res.data.token);
       await fetchUser();
-      navigate("/home");
+      navigate("/");
     } catch (error) {
       setError(handleAuthError(error));
     } finally {

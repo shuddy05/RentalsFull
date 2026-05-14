@@ -7,17 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import api from "../api/axiosConfig";
 import handleAuthError from "../utils/handleError";
-
-const schema = yup.object({
-  password: yup
-    .string()
-    .min(6, "Password must be at least 6 characters")
-    .required("Password is required"),
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref("password")], "Passwords must match")
-    .required("Confirm password is required"),
-});
+import { resetPasswordSchema } from "../utils/formvalidation";
 
 const ResetPassword = () => {
   const [error, setError] = useState(null);
@@ -34,7 +24,7 @@ const ResetPassword = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) });
+  } = useForm({ resolver: yupResolver(resetPasswordSchema) });
 
   const handleReset = async (data) => {
     setLoading(true);
@@ -47,7 +37,7 @@ const ResetPassword = () => {
         password,
         confirmPassword,
       });
-      navigate("/");
+      navigate("/login");
     } catch (error) {
       setError(handleAuthError(error));
     } finally {
@@ -127,7 +117,7 @@ const ResetPassword = () => {
             {loading ? "Resetting..." : "Reset Password"}
           </button>
 
-          <Link to="/">
+          <Link to="/login">
             <p className="text-gray-600 cursor-pointer text-center mt-6">
               Remember your password?{" "}
               <span className="text-[#7065F0]">Login</span>
