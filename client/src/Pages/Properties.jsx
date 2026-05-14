@@ -69,8 +69,8 @@ const Properties = () => {
   const filteredProperties = properties.filter((property) => {
     const matchesStatus =
       activeFilter === "All" ||
-      (activeFilter === "For Rent" && property.status === "for rent") ||
-      (activeFilter === "For Sale" && property.status === "for sale");
+      (activeFilter === "For Rent" && property.status === "For Rent") ||
+      (activeFilter === "For Sale" && property.status === "For Sale");
 
     const matchesType = searchType
       ? property.type?.toLowerCase() === searchType.toLowerCase()
