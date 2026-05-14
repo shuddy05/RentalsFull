@@ -17,7 +17,7 @@ const propertySchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["for sale", "for rent"],
+      enum: ["For Sale", "For Rent"],
       required: true,
     },
     rooms: {
@@ -30,7 +30,7 @@ const propertySchema = new mongoose.Schema(
     },
 
     images: {
-      type: [String], 
+      type: [String],
       required: true,
     },
   },
