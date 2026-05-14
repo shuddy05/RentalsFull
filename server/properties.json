@@ -13,7 +13,7 @@
   },
   {
     "title": "Maple Garden Apartment",
-    "location": "Yaba, Lagos, Nigeria",
+    "location": "Bodija, Ibadan, Nigeria",
     "price": 3800000,
     "status": "For Rent",
     "rooms": "3 Bedrooms",
@@ -25,7 +25,7 @@
   },
   {
     "title": "Sunset Penthouse",
-    "location": "Victoria Island, Lagos, Nigeria",
+    "location": "Wuse, Abuja, Nigeria",
     "price": 25000000,
     "status": "For Sale",
     "rooms": "6 Bedrooms",
@@ -37,11 +37,10 @@
   },
   {
     "title": "Royal Palm Estate",
-    "location": "Ajah, Lagos, Nigeria",
+    "location": "GRA, Port Harcourt, Nigeria",
     "price": 18700000,
     "status": "For Sale",
     "rooms": "4 Bedrooms",
-    "type": "House",
     "bath": "5 Bathrooms",
     "images": [
       "https://images.unsplash.com/photo-1685514823717-7e1ff6ee0563?auto=format&fit=crop&w=800&q=75"
@@ -49,7 +48,7 @@
   },
   {
     "title": "Crystal Heights Villa",
-    "location": "Ikeja, Lagos, Nigeria",
+    "location": "Maitama, Abuja, Nigeria",
     "price": 9200000,
     "status": "For Rent",
     "rooms": "5 Bedrooms",
@@ -73,7 +72,7 @@
   },
   {
     "title": "Golden Nest Apartment",
-    "location": "Festac, Lagos, Nigeria",
+    "location": "Challenge, Ibadan, Nigeria",
     "price": 4600000,
     "status": "For Rent",
     "rooms": "2 Bedrooms",
@@ -85,7 +84,7 @@
   },
   {
     "title": "Skyline Mansion",
-    "location": "Ikoyi, Lagos, Nigeria",
+    "location": "Asokoro, Abuja, Nigeria",
     "price": 35000000,
     "status": "For Sale",
     "type": "House",
@@ -97,7 +96,7 @@
   },
   {
     "title": "Harmony Residency",
-    "location": "Maryland, Lagos, Nigeria",
+    "location": "Eliozu, Port Harcourt, Nigeria",
     "price": 5700000,
     "status": "For Rent",
     "rooms": "4 Bedrooms",
@@ -121,7 +120,7 @@
   },
   {
     "title": "Prestige Luxury Home",
-    "location": "Chevron, Lagos, Nigeria",
+    "location": "Ada George, Port Harcourt, Nigeria",
     "price": 11400000,
     "status": "For Sale",
     "rooms": "6 Bedrooms",
@@ -133,7 +132,7 @@
   },
   {
     "title": "Blue Haven Suites",
-    "location": "Ogudu, Lagos, Nigeria",
+    "location": "Garki, Abuja, Nigeria",
     "price": 3200000,
     "status": "For Rent",
     "rooms": "2 Bedrooms",
