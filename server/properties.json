@@ -41,10 +41,10 @@
     ],
     "squareArea": "1,200 sq ft",
     "parking": "1 Car Garage",
-    "images": [
-      "https://i.pinimg.com/736x/04/d3/47/04d3474fddf7b4ab3797822a74caa250.jpg",
-      "https://plus.unsplash.com/premium_photo-1676823547752-1d24e8597047?auto=format&fit=crop&w=800&q=75",
-      "https://plus.unsplash.com/premium_photo-1676823547752-1d24e8597047?auto=format&fit=crop&w=800&q=75"
+    "images":[
+      "https://images.unsplash.com/photo-1777115470083-950377731c61?auto=format&fit=crop&w=800&q=75",
+      "https://plus.unsplash.com/premium_photo-1661901247009-859f7fb45f40?auto=format&fit=crop&w=800&q=75",
+      "https://images.unsplash.com/photo-1738229115060-c94bbe5e548a?auto=format&fit=crop&w=800&q=75"
     ]
   },
   {
@@ -65,8 +65,8 @@
     ],
     "squareArea": "3,000 sq ft",
     "parking": "2 Car Garage",
-    "images": [
-      "https://images.unsplash.com/photo-1627141234469-24711efb373c?auto=format&fit=crop&w=800&q=75",
+    "images":  [
+      "https://i.pinimg.com/736x/04/d3/47/04d3474fddf7b4ab3797822a74caa250.jpg",
       "https://plus.unsplash.com/premium_photo-1676823547752-1d24e8597047?auto=format&fit=crop&w=800&q=75",
       "https://plus.unsplash.com/premium_photo-1676823547752-1d24e8597047?auto=format&fit=crop&w=800&q=75"
     ]
@@ -90,9 +90,9 @@
     "squareArea": "2,800 sq ft",
     "parking": "2 Car Garage",
     "images": [
-      "https://images.unsplash.com/photo-1685514823717-7e1ff6ee0563?auto=format&fit=crop&w=800&q=75",
+      "https://images.unsplash.com/photo-1627141234469-24711efb373c?auto=format&fit=crop&w=800&q=75",
       "https://plus.unsplash.com/premium_photo-1676823547752-1d24e8597047?auto=format&fit=crop&w=800&q=75",
-      "https://images.unsplash.com/photo-1632935187086-49a9d8027292?auto=format&fit=crop&w=800&q=75"
+      "https://plus.unsplash.com/premium_photo-1676823547752-1d24e8597047?auto=format&fit=crop&w=800&q=75"
     ]
   },
   {
@@ -114,9 +114,177 @@
     "squareArea": "2,000 sq ft",
     "parking": "2 Car Garage",
     "images": [
+      "https://images.unsplash.com/photo-1685514823717-7e1ff6ee0563?auto=format&fit=crop&w=800&q=75",
+      "https://plus.unsplash.com/premium_photo-1676823547752-1d24e8597047?auto=format&fit=crop&w=800&q=75",
+      "https://images.unsplash.com/photo-1632935187086-49a9d8027292?auto=format&fit=crop&w=800&q=75"
+    ]
+  },
+  {
+    "title": "Emerald Court",
+    "location": "Surulere, Lagos, Nigeria",
+    "price": 6300000,
+    "status": "For Sale",
+    "rooms": "3 Bedrooms",
+    "bath": "3 Bathrooms",
+    "type": "House",
+    "description": "Enjoy the perfect blend of comfort and style in our Emerald Court property located in Surulere, Lagos. This charming house features 3 spacious bedrooms and 3 modern bathrooms, ideal for a growing family. The thoughtfully designed interior offers a warm and inviting atmosphere for everyday living.",
+    "features": [
+      "Modern Kitchen",
+      "Balcony",
+      "Gym Access",
+      "Shower Cubicle",
+      "Exclusive Amenities"
+    ],
+    "squareArea": "1,800 sq ft",
+    "parking": "1 Car Garage",
+    "images":  [
       "https://i.pinimg.com/736x/ee/9d/48/ee9d489737e1463ebad83931c5ee2d08.jpg",
       "https://images.unsplash.com/photo-1708111776235-990d08c84658?auto=format&fit=crop&w=800&q=75",
       "https://images.unsplash.com/photo-1723641304197-b537e4eb820f?auto=format&fit=crop&w=800&q=75"
     ]
+  },
+  {
+    "title": "Golden Nest Apartment",
+    "location": "Challenge, Ibadan, Nigeria",
+    "price": 4600000,
+    "status": "For Rent",
+    "rooms": "2 Bedrooms",
+    "type": "Apartment",
+    "bath": "2 Bathrooms",
+    "description": "Find your perfect retreat in our Golden Nest Apartment located in Challenge, Ibadan. This cozy apartment features 2 spacious bedrooms and 2 modern bathrooms, making it ideal for a comfortable living experience. The apartment is equipped with essential amenities for a convenient lifestyle.",
+    "features": [
+      "Modern Kitchen",
+      "Balcony",
+      "Gym Access",
+      "Shower Cubicle",
+      "Exclusive Amenities"
+    ],
+    "squareArea": "1,200 sq ft",
+    "parking": "1 Car Garage",
+    "images":  [
+      "https://images.unsplash.com/photo-1721815693498-cc28507c0ba2?auto=format&fit=crop&w=800&q=75",
+      "https://images.unsplash.com/photo-1714645921696-34675529ea04?auto=format&fit=crop&w=800&q=75",
+      "https://images.unsplash.com/photo-1714645983878-97f9e62252ff?auto=format&fit=crop&w=800&q=75"
+    ]
+  },
+  {
+    "title": "Skyline Mansion",
+    "location": "Asokoro, Abuja, Nigeria",
+    "price": 35000000,
+    "status": "For Sale",
+    "type": "House",
+    "rooms": "7 Bedrooms",
+    "bath": "8 Bathrooms",
+    "description": "Indulge in the epitome of luxury with our Skyline Mansion in Asokoro, Abuja. This magnificent property boasts 7 spacious bedrooms and 8 modern bathrooms, offering an unparalleled living experience. The thoughtfully designed interior combines elegance with functionality, while the expansive layout provides ample space for entertaining guests or enjoying quiet moments.",
+    "features": [
+      "Modern Kitchen",
+      "Balcony",
+      "Gym Access",
+      "Shower Cubicle",
+      "Exclusive Amenities"
+    ],
+    "squareArea": "3,500 sq ft",
+    "parking": "2 Car Garage",
+    "images": [
+      "https://images.unsplash.com/photo-1628144688607-c373d8e3f31b?auto=format&fit=crop&w=800&q=75",
+      "https://images.unsplash.com/photo-1648775933902-f633de370964?auto=format&fit=crop&w=800&q=75",
+      "https://images.unsplash.com/photo-1648775933902-f633de370964?auto=format&fit=crop&w=800&q=75"
+    ]
+  },
+  {
+    "title": "Harmony Residency",
+    "location": "Eliozu, Port Harcourt, Nigeria",
+    "price": 5700000,
+    "status": "For Rent",
+    "rooms": "4 Bedrooms",
+    "type": "House",
+    "bath": "3 Bathrooms",
+    "description": "Experience the perfect blend of comfort and style in our Harmony Residency located in Eliozu, Port Harcourt. This charming house features 4 spacious bedrooms and 3 modern bathrooms, ideal for a growing family. The thoughtfully designed interior offers a warm and inviting atmosphere for everyday living.",
+    "features": [
+      "Modern Kitchen",
+      "Balcony",
+      "Gym Access",
+      "Shower Cubicle",
+      "Exclusive Amenities"
+    ],
+    "squareArea": "2,200 sq ft",
+    "parking": "1 Car Garage",
+    "images": [
+      "https://images.unsplash.com/photo-1663923330731-d2c5586aefb7?auto=format&fit=crop&w=800&q=75",
+      "https://plus.unsplash.com/premium_photo-1661881396947-8818501ba641?auto=format&fit=crop&w=800&q=75",
+      "https://images.unsplash.com/photo-1670222783941-c1bee0e32c85?auto=format&fit=crop&w=800&q=75"
+    ]
+  },
+  {
+    "title": "Silver Oak Terrace",
+    "location": "Magodo, Lagos, Nigeria",
+    "price": 7900000,
+    "status": "For Sale",
+    "rooms": "5 Bedrooms",
+    "bath": "4 Bathrooms",
+    "type": "House",
+    "description": "Enjoy the perfect blend of comfort and style in our Silver Oak Terrace located in Magodo, Lagos. This charming house features 5 spacious bedrooms and 4 modern bathrooms, ideal for a growing family. The thoughtfully designed interior offers a warm and inviting atmosphere for everyday living.",
+    "features": [
+      "Modern Kitchen",
+      "Balcony",
+      "Gym Access",
+      "Shower Cubicle",
+      "Exclusive Amenities"
+    ],
+    "squareArea": "2,500 sq ft",
+    "parking": "2 Car Garage",
+    "images":  [
+      "https://images.unsplash.com/photo-1777115471024-b0a140087e60?auto=format&fit=crop&w=800&q=75",
+      "https://images.unsplash.com/photo-1601086540476-7d9fa9dd6023?auto=format&fit=crop&w=800&q=75",
+      "https://images.unsplash.com/photo-1714386292905-ba4da2397be2?auto=format&fit=crop&w=800&q=75"
+    ]
+  },
+  {
+    "title": "Prestige Luxury Home",
+    "location": "Ada George, Port Harcourt, Nigeria",
+    "price": 11400000,
+    "status": "For Sale",
+    "rooms": "6 Bedrooms",
+    "type": "House",
+    "bath": "5 Bathrooms",
+    "description": "Indulge in the epitome of luxury with our Prestige Luxury Home in Ada George, Port Harcourt. This magnificent property boasts 6 spacious bedrooms and 5 modern bathrooms, offering an unparalleled living experience. The thoughtfully designed interior combines elegance with functionality, while the expansive layout provides ample space for entertaining guests or enjoying quiet moments.",
+    "features": [
+      "Modern Kitchen",
+      "Balcony",
+      "Gym Access",
+      "Shower Cubicle",
+      "Exclusive Amenities"
+    ],
+    "squareArea": "3,000 sq ft",
+    "parking": "2 Car Garage",
+    "images": [
+      "https://images.unsplash.com/photo-1591474200742-8e512e6f98f8?auto=format&fit=crop&w=800&q=75",
+      "https://plus.unsplash.com/premium_photo-1748070893462-4445075983e8?auto=format&fit=crop&w=800&q=75",
+      "https://images.unsplash.com/photo-1716061812220-e77a1df24661?auto=format&fit=crop&w=800&q=75"
+    ]
+  },
+  {
+    "title": "Blue Haven Suites",
+    "location": "Garki, Abuja, Nigeria",
+    "price": 3200000,
+    "status": "For Rent",
+    "rooms": "2 Bedrooms",
+    "type": "Apartment",
+    "bath": "1 Bathroom",
+    "description": "Find your perfect retreat in our Blue Haven Suites located in Garki, Abuja. This cozy apartment features 2 spacious bedrooms and 1 modern bathroom, making it ideal for a comfortable living experience. The apartment is equipped with essential amenities for a convenient lifestyle.",
+    "features": [
+      "Modern Kitchen",
+      "Balcony",
+      "Gym Access",
+      "Shower Cubicle",
+      "Exclusive Amenities"
+    ],
+    "squareArea": "1,200 sq ft",
+    "parking": "1 Car Garage",
+    "images": [
+      "https://images.unsplash.com/photo-1660361339436-ddd4b85372da?auto=format&fit=crop&w=800&q=75",
+      "https://images.unsplash.com/photo-1603825491252-775d159a3b87?auto=format&fit=crop&w=800&q=75",
+      "https://images.unsplash.com/photo-1715688831161-064f33283c6c?auto=format&fit=crop&w=800&q=75"
+    ] 
   }
 ]

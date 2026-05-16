@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import propertyRouter from "./routes/propertiesRouter.js";
 import { router as authRouter } from "./routes/authRouter.js";
+import savedPropertiesRouter from "./routes/savedPropertiesRouter.js";
 const app = express();
 
 const port = Number(process.env.PORT) || 1015;
@@ -13,7 +14,7 @@ app.use(express.json());
 
 app.use("/auth", authRouter);
 app.use("/api/properties", propertyRouter);
-
+app.use("/api/saved-properties", savedPropertiesRouter);
 const startServer = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI);

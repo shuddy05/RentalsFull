@@ -7,13 +7,7 @@ import logo from "../assets/images/reallogo.png";
 import { useAuth } from "../context/AuthContext";
 import arrowDown from "../assets/images/Vector.png";
 import photo from "../assets/images/newpass.jpg";
-const navLinks = [
-  { label: "Home", path: "/" },
-  { label: "Properties", path: "/properties" },
-  { label: "About Us", path: "/about" },
-  { label: "List Properties", path: "/detail-properties" },
-  { label: "Contact Us", path: "/contact" },
-];
+
 
 const Navbar = () => {
   const { pathname } = useLocation();
@@ -22,6 +16,20 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+
+  const navLinks = user
+    ? [
+        { label: "Properties", path: "/properties" },
+        { label: "Saved Properties", path: "/saved-properties" },
+        { label: "Contact Us", path: "/contact" },
+      ]
+    : [
+        { label: "Home", path: "/" },
+        { label: "Properties", path: "/properties" },
+        { label: "About Us", path: "/about" },
+        { label: "List Properties", path: "/detail-properties" },
+        { label: "Contact Us", path: "/contact" },
+      ];
 
   useEffect(() => {
     const handleClickOutside = (e) => {
