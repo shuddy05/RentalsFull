@@ -16,6 +16,7 @@ const Properties = lazy(() => import("./Pages/Properties"));
 const DetailedProperties = lazy(() => import("./Pages/DetailedProperties"));
 const Error404 = lazy(() => import("./Pages/Error404Page"));
 const Loading = lazy(() => import("./utils/Loading"));
+const savedProperties = lazy(() => import("./Pages/savedProperties"));
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
                 path="/detail-properties/:id"
                 element={<DetailedProperties />}
               />
+              <Route path="/saved-properties" element={<savedProperties />} />
             </Route>
 
             <Route element={<AuthLayout />}>

@@ -5,6 +5,7 @@ import circle from "../assets/images/WarningCircle.png";
 import ErrorImg from "../assets/images/Frame.png";
 import { Link } from "react-router-dom";
 import api from "../api/axiosConfig";
+import BookmarkButton from "../Components/BookmarkButton";
 
 const NoMatchFound = ({ onClear }) => (
   <div className="flex flex-col items-center justify-center py-16 px-6">
@@ -215,6 +216,7 @@ const Properties = () => {
                     rooms,
                     bath,
                     status,
+                    savedProperties,
                   } = property;
 
                   return (
@@ -232,9 +234,10 @@ const Properties = () => {
                           </button>
 
                           <div className="absolute top-4 right-4">
-                            <div className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full border border-gray-400 bg-white">
-                              <FaRegHeart className="h-5 w-5 sm:h-6 sm:w-6 text-gray-500" />
-                            </div>
+                            <BookmarkButton
+                              propertyId={_id}
+                              savedProperties={savedProperties}
+                            />
                           </div>
 
                           <img
