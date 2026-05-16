@@ -9,7 +9,7 @@ import { auth } from "../middleware/middleware.js";
 const router = express.Router();
 
 router.get("/", auth, getSavedProperties);
-router.post("/save/:id", auth, saveProperty);
-router.delete("/unsave/:id", auth, unsaveProperty);
+router.post("/:id", auth, saveProperty);
+router.delete("/:id", auth, unsaveProperty);
 
 export default router;
