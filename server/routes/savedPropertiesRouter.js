@@ -10,6 +10,6 @@ const router = express.Router();
 
 router.get("/", auth, getSavedProperties);
 router.post("/save/:id", auth, saveProperty);
-router.post("/unsave/:id", auth, unsaveProperty);
+router.delete("/unsave/:id", auth, unsaveProperty);
 
 export default router;
