@@ -15,6 +15,7 @@ app.use(express.json());
 app.use("/auth", authRouter);
 app.use("/api/properties", propertyRouter);
 app.use("/api/saved-properties", savedPropertiesRouter);
+
 const startServer = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI);

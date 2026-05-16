@@ -29,10 +29,10 @@ const BookmarkButton = ({ propertyId, savedProperties = [] }) => {
     setLoading(true);
     try {
       if (saved) {
-        await api.delete(`/auth/api/saved-properties/${propertyId}`);
+        await api.delete(`/api/saved-properties/${propertyId}`);
         setSaved(false);
       } else {
-        await api.post(`/auth/api/saved-properties/${propertyId}`);
+        await api.post(`/api/saved-properties/${propertyId}`);
         setSaved(true);
       }
     } catch (error) {
