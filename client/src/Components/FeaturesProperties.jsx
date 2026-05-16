@@ -3,6 +3,7 @@ import { FaRegHeart } from "react-icons/fa6";
 import { PiBedBold, PiBathtubBold } from "react-icons/pi";
 import { Link } from "react-router-dom";
 import api from "../api/axiosConfig";
+import BookmarkButton from "./BookmarkButton";
 
 const FeaturesProperties = () => {
   const [properties, setProperties] = useState([]);
@@ -61,8 +62,17 @@ const FeaturesProperties = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 items-stretch">
           {displayed.map((property) => {
-            const { _id, images, title, location, price, rooms, bath, status } =
-              property;
+            const {
+              _id,
+              images,
+              title,
+              location,
+              price,
+              rooms,
+              bath,
+              status,
+              savedProperties,
+            } = property;
 
             return (
               <div key={_id} className="flex flex-col">
@@ -74,9 +84,10 @@ const FeaturesProperties = () => {
                       {status}
                     </button>
                     <div className="absolute top-4 right-4">
-                      <div className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full border border-gray-400 bg-white">
-                        <FaRegHeart className="h-5 w-5 sm:h-6 sm:w-6 text-gray-500" />
-                      </div>
+                      <BookmarkButton
+                        propertyId={_id}
+                        savedProperties={savedProperties}
+                      />
                     </div>
                     <img
                       src={images[0]}

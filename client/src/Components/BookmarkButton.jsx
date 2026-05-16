@@ -22,21 +22,22 @@ const BookmarkButton = ({ propertyId, savedProperties = [] }) => {
     e.stopPropagation();
 
     if (!user) {
-      navigate("/");
+      navigate("/login");
       return;
     }
 
     setLoading(true);
     try {
       if (saved) {
-        await api.delete(`/auth/saved-properties/${propertyId}`);
+        await api.delete(`/auth/api/saved-properties/${propertyId}`);
         setSaved(false);
       } else {
-        await api.post(`/auth/saved-properties/${propertyId}`);
+        await api.post(`/auth/api/saved-properties/${propertyId}`);
         setSaved(true);
       }
     } catch (error) {
       console.error("Bookmark error:", error);
+      console.error("Bookmark error:", error.response?.data);
     } finally {
       setLoading(false);
     }
