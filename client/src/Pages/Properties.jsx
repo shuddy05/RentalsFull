@@ -223,7 +223,7 @@ const Properties = () => {
                         <div className="relative h-56 sm:h-64">
                           <button
                             className={`absolute top-4 left-4 rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-white text-sm sm:text-base ${
-                              status === "for sale"
+                              status === "For Sale"
                                 ? "bg-[#097521]"
                                 : "bg-[#FF7A37]"
                             }`}

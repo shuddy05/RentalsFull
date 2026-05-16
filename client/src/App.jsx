@@ -13,9 +13,7 @@ const VerifyOTP = lazy(() => import("./Pages/VerifyOtp"));
 const ResetPassword = lazy(() => import("./Pages/ResetPassword"));
 const Home = lazy(() => import("./Pages/Home"));
 const Properties = lazy(() => import("./Pages/Properties"));
-const DetailedProperties = lazy(
-  () => import("./Components/DetailedProperties"),
-);
+const DetailedProperties = lazy(() => import("./Pages/DetailedProperties"));
 const Error404 = lazy(() => import("./Pages/Error404Page"));
 const Loading = lazy(() => import("./utils/Loading"));
 
@@ -29,7 +27,7 @@ const App = () => {
               <Route path="/" element={<Home />} />
               <Route path="/properties" element={<Properties />} />
               <Route
-                path="/detail-properties"
+                path="/detail-properties/:id"
                 element={<DetailedProperties />}
               />
             </Route>
