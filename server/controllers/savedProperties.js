@@ -3,7 +3,9 @@ import Property from "../models/properties.js";
 export const getSavedProperties = async (req, res) => {
   try {
     const { userId } = req.user;
+    console.log("userId:", userId);
     const properties = await Property.find({ savedProperties: userId });
+    console.log("userId:", userId);
     res.status(200).json({ data: properties });
   } catch (error) {
     res.status(500).json({ message: error.message });

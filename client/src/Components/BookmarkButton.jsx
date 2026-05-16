@@ -17,12 +17,12 @@ const BookmarkButton = ({ propertyId, savedProperties = [] }) => {
   const [saved, setSaved] = useState(isBookmarked);
   const [loading, setLoading] = useState(false);
 
-  const savedProperty = async (e) => {
+  const handleBookmark = async (e) => {
     e.preventDefault();
     e.stopPropagation();
 
     if (!user) {
-      navigate("/login");
+      navigate("/");
       return;
     }
 
@@ -32,12 +32,14 @@ const BookmarkButton = ({ propertyId, savedProperties = [] }) => {
         await api.delete(`/api/saved-properties/${propertyId}`);
         setSaved(false);
       } else {
-        await api.post(`/api/saved-properties/${propertyId}`);
+        const res = await api.post(`/api/saved-properties/${propertyId}`);
+        console.log("save response:", res.data);
         setSaved(true);
       }
     } catch (error) {
-      console.error("Bookmark error:", error);
-      console.error("Bookmark error:", error.response?.data);
+      console.error("Full error:", error);
+      console.error("Error status:", error.response?.status);
+      console.error("Error message:", error.message);
     } finally {
       setLoading(false);
     }
@@ -45,7 +47,7 @@ const BookmarkButton = ({ propertyId, savedProperties = [] }) => {
 
   return (
     <button
-      onClick={savedProperty}
+      onClick={handleBookmark}
       disabled={loading}
       className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full border border-gray-400 bg-white disabled:opacity-50 cursor-pointer"
     >
