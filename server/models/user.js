@@ -27,10 +27,6 @@ const userSchema = new mongoose.Schema(
       type: Date,
       default: null,
     },
-    savedProperties: {
-      type: [{ type: mongoose.Types.ObjectId, ref: "User" }],
-      default: [],
-    },
   },
 
   { timestamps: true },

@@ -53,6 +53,10 @@ const propertySchema = new mongoose.Schema(
       type: [String],
       required: true,
     },
+    savedProperties: {
+      type: [{ type: mongoose.Types.ObjectId, ref: "User" }],
+      default: [],
+    },
   },
   { timestamps: true },
 );
