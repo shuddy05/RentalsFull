@@ -98,3 +98,4 @@ export const resetPassword = async (req, res) => {
       .json({ message: "Password reset failed", error: error.message });
   }
 };
+

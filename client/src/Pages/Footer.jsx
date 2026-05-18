@@ -17,7 +17,7 @@ const Footer = () => {
           Home
         </h1>
 
-        <div className="text-[14px] flex flex-col justify-between">
+        <div className="text-[14px] flex flex-col justify-between gap-8 sm:gap-6">
           <ul className="flex flex-col gap-2">
             <li className="hover:text-white/70 ">Home</li>
             <li className="hover:text-white/70 ">Property</li>

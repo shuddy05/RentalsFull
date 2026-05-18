@@ -1,7 +1,11 @@
 import React from "react";
-import HeroSection from "../Components/HeroSection";
-import FeaturesProperties from "../Components/FeaturesProperties";
-import HomeComponents from "../Components/HomeComponents";
+import { lazy } from "react";
+const HomeComponents = lazy(() => import("../Components/HomeComponents"));
+const HeroSection = lazy(() => import("../Components/HeroSection"));
+const FeaturesProperties = lazy(
+  () => import("../Components/FeaturesProperties"),
+);
+
 const Home = () => {
   return (
     <main>

@@ -101,3 +101,44 @@ export const Logout = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+export const deleteAccount = async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.user.userId);
+    res.status(200).json({ message: "Account deleted successfully" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Failed to delete account", error: error.message });
+  }
+};
+
+export const updatePassword = async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+
+    const user = await User.findById(req.user.userId).select("+password");
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: "Current password is incorrect" });
+    }
+
+    user.password = newPassword;
+    await user.save();
+
+    res.status(200).json({ message: "Password updated successfully" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Failed to update password", error: error.message });
+  }
+};

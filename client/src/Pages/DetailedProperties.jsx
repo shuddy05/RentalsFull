@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { IoLocationOutline } from "react-icons/io5";
-import { FaRegHeart } from "react-icons/fa6";
 import { MdOutlineBedroomChild } from "react-icons/md";
 import { LuBath } from "react-icons/lu";
 import { LuSquareArrowOutUpLeft } from "react-icons/lu";
 import { RiCarWashingLine } from "react-icons/ri";
 import { BsCheckSquareFill } from "react-icons/bs";
 import { FiPhone, FiMapPin } from "react-icons/fi";
-import { PiBedBold, PiBathtubBold } from "react-icons/pi";
-import { FaRegHeart as HeartIcon } from "react-icons/fa6";
 import { Link, useParams } from "react-router-dom";
 import agentImg from "../assets/images/newpass.jpg";
 import map from "../assets/images/Map.png";
 import api from "../api/axiosConfig";
 import BookmarkButton from "../Components/BookmarkButton";
+import PropertyCard from "../Components/PropertyCard";
 
 const DetailedProperties = () => {
   const { id } = useParams();
@@ -303,58 +301,7 @@ const DetailedProperties = () => {
           </h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 items-stretch">
             {similarProperties.map((prop) => (
-              <div key={prop._id} className="flex flex-col">
-                <div className="rounded-[10px] border border-[#D9D9D9] bg-white shadow-xl overflow-hidden flex flex-col h-full">
-                  <div className="relative h-56 sm:h-64 shrink-0">
-                    <button
-                      className={`absolute top-4 left-4 rounded-full px-3 sm:px-4 py-1.5 sm:py-2 text-white text-sm ${prop.status === "For Sale" ? "bg-[#097521]" : "bg-[#FF7A37]"}`}
-                    >
-                      {prop.status}
-                    </button>
-                    <div className="absolute top-4 right-4">
-                      <BookmarkButton
-                        propertyId={prop._id}
-                        savedProperties={prop.savedProperties}
-                      />
-                    </div>
-                    <img
-                      src={prop.images[0]}
-                      alt={prop.title}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                  <div className="p-4 sm:p-5 flex flex-col justify-between flex-1">
-                    <div className="space-y-2 sm:space-y-3">
-                      <h2 className="text-lg sm:text-xl font-semibold">
-                        {prop.title}
-                      </h2>
-                      <p className="text-base sm:text-lg text-[#403F3F]">
-                        {prop.location}
-                      </p>
-                      <div className="flex items-center gap-4 sm:gap-6">
-                        <div className="flex items-center gap-2">
-                          <PiBedBold />
-                          <p className="text-sm sm:text-base">{prop.rooms}</p>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <PiBathtubBold />
-                          <p className="text-sm sm:text-base">{prop.bath}</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="mt-5 sm:mt-6 flex items-center justify-between">
-                      <Link to={`/detail-properties/${prop._id}`}>
-                        <button className="rounded-lg cursor-pointer bg-purple-500 px-4 sm:px-6 py-2 sm:py-3 text-white text-sm sm:text-base">
-                          Details
-                        </button>
-                      </Link>
-                      <h3 className="text-xl sm:text-2xl font-bold">
-                        ₦{prop.price.toLocaleString()}
-                      </h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <PropertyCard key={prop._id} property={prop} />
             ))}
           </div>
         </div>

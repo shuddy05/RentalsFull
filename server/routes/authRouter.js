@@ -4,6 +4,8 @@ import {
   Login,
   getUser,
   Logout,
+  deleteAccount,
+  updatePassword,
 } from "../controllers/authController.js";
 import { auth } from "../middleware/middleware.js";
 import {
@@ -18,6 +20,8 @@ router.post("/register", Register);
 router.post("/login", Login);
 router.get("/user", auth, getUser);
 router.get("/logout", auth, Logout);
+router.get("/delete-account", auth, deleteAccount);
+router.get("/update-password", auth, updatePassword);
 router.post("/forgot-password", forgotPassword);
 router.post("/verify-otp", verifyOTP);
 router.post("/reset-password", resetPassword);
