@@ -8,7 +8,7 @@ import api from "../api/axiosConfig";
 const EmptyState = () => (
   <div className="flex flex-col items-center justify-center py-20 gap-4">
     <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center">
-      <FaRegHeart className="w-8 h-8 text-gray-350" />
+      <FaRegHeart className="w-8 h-8 text-gray-400" />
     </div>
     <h2 className="text-lg sm:text-xl font-bold text-gray-800">
       You haven't saved any Properties yet.
