@@ -13,6 +13,7 @@ import { Link, useParams } from "react-router-dom";
 import agentImg from "../assets/images/newpass.jpg";
 import map from "../assets/images/Map.png";
 import api from "../api/axiosConfig";
+import BookmarkButton from "../Components/BookmarkButton";
 
 const DetailedProperties = () => {
   const { id } = useParams();
@@ -87,9 +88,10 @@ const DetailedProperties = () => {
               {property.status}
             </button>
             <div className="absolute top-4 right-4 z-10">
-              <div className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full border border-gray-400 bg-white">
-                <FaRegHeart className="h-5 w-5 sm:h-6 sm:w-6 text-gray-500" />
-              </div>
+              <BookmarkButton
+                propertyId={property._id}
+                savedProperties={property.savedProperties}
+              />
             </div>
             <img
               src={property.images[0]}
@@ -244,7 +246,6 @@ const DetailedProperties = () => {
                 </button>
               </div>
 
-              {/* Schedule Tour */}
               <div className="rounded-2xl border border-gray-200 bg-white shadow-sm p-5 sm:p-6">
                 <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-4 sm:mb-5">
                   Schedule a Tour
@@ -311,9 +312,10 @@ const DetailedProperties = () => {
                       {prop.status}
                     </button>
                     <div className="absolute top-4 right-4">
-                      <div className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full border border-gray-400 bg-white">
-                        <HeartIcon className="h-5 w-5 sm:h-6 sm:w-6 text-gray-500" />
-                      </div>
+                      <BookmarkButton
+                        propertyId={prop._id}
+                        savedProperties={prop.savedProperties}
+                      />
                     </div>
                     <img
                       src={prop.images[0]}

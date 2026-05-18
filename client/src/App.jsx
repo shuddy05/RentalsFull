@@ -17,6 +17,7 @@ const DetailedProperties = lazy(() => import("./Pages/DetailedProperties"));
 const Error404 = lazy(() => import("./Pages/Error404Page"));
 const Loading = lazy(() => import("./utils/Loading"));
 const SavedProperties = lazy(() => import("./Pages/SavedProperties"));
+const AccountSettings = lazy(() => import("./Pages/AccountSettings"));
 
 const App = () => {
   return (
@@ -32,6 +33,7 @@ const App = () => {
                 element={<DetailedProperties />}
               />
               <Route path="/saved-properties" element={<SavedProperties />} />
+              <Route path="/account" element={<AccountSettings />} />
             </Route>
 
             <Route element={<AuthLayout />}>

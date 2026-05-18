@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import api from "../api/axiosConfig";
 import BookmarkButton from "../Components/BookmarkButton";
 
+
 const NoMatchFound = ({ onClear }) => (
   <div className="flex flex-col items-center justify-center py-16 px-6">
     <img src={ErrorImg} alt="" className="w-40 sm:w-auto" />
@@ -38,7 +39,7 @@ const Properties = () => {
   const [searchBudget, setSearchBudget] = useState("");
   const [searchLocation, setSearchLocation] = useState("");
   const [searched, setSearched] = useState(false);
-
+  const year = new Date().getFullYear();
   useEffect(() => {
     const fetchProperties = async () => {
       try {
@@ -313,6 +314,8 @@ const Properties = () => {
             </>
           )}
         </div>
+
+       
       </div>
     </main>
   );
