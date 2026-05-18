@@ -270,7 +270,11 @@ const AccountSettings = () => {
                 Notification Preferences
               </h1>
               <div className="flex gap-2">
-                <input type="checkbox" id="email-notification" />
+                <input
+                  type="radio"
+                  id="email-notification"
+                  name="notification"
+                />
                 <label
                   className="text-[14px] text-gray-700"
                   htmlFor="email-notification"
@@ -279,7 +283,7 @@ const AccountSettings = () => {
                 </label>
               </div>
               <div className="flex gap-2">
-                <input type="checkbox" id="sms-notification" />
+                <input type="radio" id="sms-notification" name="notification" />
                 <label
                   className="text-[14px] text-gray-700"
                   htmlFor="sms-notification"
