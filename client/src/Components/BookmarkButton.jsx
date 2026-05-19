@@ -22,7 +22,7 @@ const BookmarkButton = ({ propertyId, savedProperties = [] }) => {
     e.stopPropagation();
 
     if (!user) {
-      navigate("/");
+      navigate("/login");
       return;
     }
 
