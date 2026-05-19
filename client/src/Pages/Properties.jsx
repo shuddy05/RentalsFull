@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-
 import circle from "../assets/images/WarningCircle.png";
 import ErrorImg from "../assets/images/Frame.png";
+import BgImage from "../assets/images/bgImage.jpg";
 import { Link } from "react-router-dom";
 import api from "../api/axiosConfig";
 import PropertyCard from "../Components/PropertyCard";
+import { useAuth } from "../context/AuthContext";
 
 const NoMatchFound = ({ onClear }) => (
   <div className="flex flex-col items-center justify-center py-16 px-6">
@@ -28,6 +29,7 @@ const NoMatchFound = ({ onClear }) => (
 );
 
 const Properties = () => {
+  const { user } = useAuth();
   const [activeFilter, setActiveFilter] = useState("All");
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -108,15 +110,35 @@ const Properties = () => {
   return (
     <main>
       <div className="layout">
-        <div className="bg-[#0C092C] min-h-[420px] md:min-h-[484px] text-center flex flex-col justify-center items-center px-4 py-12">
-          <h1 className="text-white text-3xl sm:text-4xl md:text-[48px] font-bold mb-4">
-            Browse Property
-          </h1>
-          <p className="text-sm sm:text-base md:text-[18px] text-white mb-8 md:mb-[54px] font-light px-2">
-            Explore verified properties available for rent and sale.
-          </p>
+        <div
+          className={` relative min-h-[420px] md:min-h-[484px] text-center flex flex-col justify-center items-center px-4 py-12
+            ${!user ? "bg-[#0C092C]" : ""}`}
+        >
+          {user && (
+            <div>
+              <div
+                className="absolute inset-0 z-0"
+                style={{
+                  backgroundImage: `url(${BgImage})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              />
+              <div className="absolute inset-0 z-0 bg-black/60" />
+            </div>
+          )}
+          <div className="relative z-10 max-w-3xl ">
+            <h1 className=" text-white text-2xl  md:text-[48px] font-bold mb-4">
+              {user ? "Find the right property for you" : "Browse Property"}
+            </h1>
+            <p className="text-sm  md:text-[18px] text-[#E0DDDD] mb-8 md:mb-[54px] font-normal px-2">
+              {user
+                ? "Browse verified properties, save your favorites, and connect directly  with sellers—simple, fast, and stress-free."
+                : "Explore verified properties available for rent and sale."}
+            </p>
+          </div>
 
-          <div className="w-full max-w-5xl bg-white rounded-2xl md:rounded-3xl shadow-2xl p-4 sm:p-6 md:p-8">
+          <div className="relative z-10 w-full max-w-5xl bg-white rounded-2xl md:rounded-3xl shadow-2xl p-4 sm:p-6 md:p-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-5 items-end">
               <div>
                 <label className="block text-gray-800 font-semibold text-sm sm:text-base mb-1">
