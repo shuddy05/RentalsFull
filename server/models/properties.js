@@ -57,6 +57,12 @@ const propertySchema = new mongoose.Schema(
       type: [{ type: mongoose.Types.ObjectId, ref: "User" }],
       default: [],
     },
+
+    owner: {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
   },
   { timestamps: true },
 );

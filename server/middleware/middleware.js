@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import User from "../models/user.js";
 
 const extractToken = (authHeader) => {
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -7,7 +8,7 @@ const extractToken = (authHeader) => {
   return authHeader.split(" ")[1];
 };
 
-export const auth = (req, res, next) => {
+export const auth = async (req, res, next) => {
   try {
     const token = extractToken(req.headers.authorization);
 
@@ -18,8 +19,9 @@ export const auth = (req, res, next) => {
     }
 
     const payload = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(payload.userId).select("role");
 
-    req.user = payload;
+    req.user = { userId: payload.userId, role: user.role };
 
     next();
   } catch (error) {
