@@ -1,19 +1,18 @@
 import React from "react";
-import Sidebard from "../Components/admin/Sidebar";
+import Sidebar from "../Components/admin/Sidebar";
 import Topbar from "../Components/admin/Topbar";
 import { Outlet } from "react-router-dom";
+
 const AdminLayout = () => {
   return (
-    <div>
-      <main>
-        <div className="flex">
-          <Sidebard />
-          <div className="flex flex-col gap-5">
-            <Topbar />
-            <Outlet />
-          </div>
-        </div>
-      </main>
+    <div className="flex h-screen overflow-hidden">
+      <Sidebar />
+      <div className="flex flex-col flex-1 overflow-hidden">
+        <Topbar />
+        <main className="flex-1 overflow-y-auto p-6 bg-gray-50">
+          <Outlet />
+        </main>
+      </div>
     </div>
   );
 };
