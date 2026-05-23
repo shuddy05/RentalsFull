@@ -5,6 +5,7 @@ import cors from "cors";
 import propertyRouter from "./routes/propertiesRouter.js";
 import { router as authRouter } from "./routes/authRouter.js";
 import savedPropertiesRouter from "./routes/savedPropertiesRouter.js";
+import adminRouter from "./routes/adminRouter.js";
 const app = express();
 
 const port = Number(process.env.PORT) || 1015;
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use("/auth", authRouter);
 app.use("/api/properties", propertyRouter);
 app.use("/api/saved-properties", savedPropertiesRouter);
+app.use("/api/admin", adminRouter);
 
 const startServer = async () => {
   try {

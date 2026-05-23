@@ -18,7 +18,7 @@ const Error404 = lazy(() => import("./Pages/Error404Page"));
 const Loading = lazy(() => import("./utils/Loading"));
 const SavedProperties = lazy(() => import("./Pages/SavedProperties"));
 const AccountSettings = lazy(() => import("./Pages/AccountSettings"));
-
+import AdminLayout from "./layout/AdminLayout";
 const App = () => {
   return (
     <BrowserRouter>
@@ -42,6 +42,10 @@ const App = () => {
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/verify-otp" element={<VerifyOTP />} />
               <Route path="/reset-password" element={<ResetPassword />} />
+            </Route>
+
+            <Route element={<AdminLayout />}>
+              <Route path="/admin" element={<div>Admin Dashboard</div>} />
             </Route>
 
             <Route path="*" element={<Error404 />} />

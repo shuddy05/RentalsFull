@@ -1,5 +1,5 @@
-import User from "../models/user";
-import Property from "../models/properties";
+import User from "../models/user.js";
+import Property from "../models/properties.js";
 
 export const getDashboardStats = async (req, res) => {
   try {
@@ -70,7 +70,7 @@ export const addProperty = async (req, res) => {
       ...req.body,
       owner: req.user.userId,
     });
-    res.status(200).json({ message: "Property added successfully", property });
+    res.status(201).json({ message: "Property added successfully", property });
   } catch (error) {
     res
       .status(500)
