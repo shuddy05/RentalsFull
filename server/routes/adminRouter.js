@@ -19,7 +19,7 @@ router.get("/users", auth, isAdmin, getAllUsers);
 router.delete("/users/:id", auth, isAdmin, deleteUser);
 router.get("/properties", auth, isAdmin, getAllProperties);
 router.post("/properties", auth, isAdmin, addProperty);
-router.put("/properties/:id", auth, isAdmin, updateProperty);
+router.patch("/properties/:id", auth, isAdmin, updateProperty);
 router.delete("/properties/:id", auth, isAdmin, deleteProperty);
 
 export default router;

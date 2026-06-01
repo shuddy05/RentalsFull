@@ -58,6 +58,12 @@ const propertySchema = new mongoose.Schema(
       default: [],
     },
 
+    availability: {
+      type: String,
+      enum: ["Available", "Unavailable", "Draft"],
+      default: "Available",
+    },
+
     owner: {
       type: mongoose.Types.ObjectId,
       ref: "User",

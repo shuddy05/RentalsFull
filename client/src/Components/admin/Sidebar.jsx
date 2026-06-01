@@ -8,6 +8,7 @@ import { MdOutlineHomeWork } from "react-icons/md";
 import { MdOutlineTour } from "react-icons/md";
 import { RiUserSettingsLine } from "react-icons/ri";
 import { IoSettingsOutline } from "react-icons/io5";
+import { VscListFlat } from "react-icons/vsc";
 const navLinks = [
   {
     label: "Dashboard",
@@ -27,7 +28,7 @@ const navLinks = [
   {
     label: "Listing Requests",
     path: "/admin/listings",
-    icon: <MdManageAccounts size={20} />,
+    icon: <VscListFlat size={20} />,
   },
   {
     label: "User Management",
