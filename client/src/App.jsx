@@ -30,7 +30,7 @@ const AdminAcountSettings = lazy(
 );
 const ListingRequests = lazy(() => import("./Pages/admin/ListingRequests"));
 const EditProperty = lazy(() => import("./Pages/admin/EditProperty"));
-const AddProperty = lazy(() => import("./Pages/admin/AddProperty"));
+const AddNewProperty = lazy(() => import("./Pages/admin/AddNewProperty"));
 
 const App = () => {
   return (
@@ -72,6 +72,7 @@ const App = () => {
               <Route path="users" element={<UserManagement />} />
               <Route path="listings" element={<ListingRequests />} />
               <Route path="settings" element={<AdminAcountSettings />} />
+              <Route path="properties/add" element={<AddNewProperty />} />
             </Route>
 
             <Route path="*" element={<Error404 />} />

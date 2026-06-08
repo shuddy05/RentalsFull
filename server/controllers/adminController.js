@@ -11,12 +11,16 @@ export const getDashboardStats = async (req, res) => {
     const forRentProperties = await Property.countDocuments({
       status: "For Rent",
     });
+    const recentProperties = await Property.find()
+      .sort({ createdAt: -1 })
+      .limit(6);
 
     res.status(200).json({
       totalProperties,
       totalUsers,
       forSaleProperties,
       forRentProperties,
+      recentProperties,
     });
   } catch (error) {
     res.status(500).json({
