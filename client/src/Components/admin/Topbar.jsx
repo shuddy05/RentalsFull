@@ -1,11 +1,10 @@
 import React from "react";
 import { useAuth } from "../../context/AuthContext";
-import { FaBell } from "react-icons/fa";
-import { FaUserCircle } from "react-icons/fa";
 import arrowDown from "../../assets/images/Vector.png";
 import { useLocation } from "react-router-dom";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import image from "../../assets/images/newpass.jpg";
+
 const Topbar = () => {
   const { user } = useAuth();
   const { pathname } = useLocation();
@@ -19,30 +18,34 @@ const Topbar = () => {
     if (pathname.includes("settings")) return "Account Settings";
     return "Dashboard";
   };
+
   return (
-    <header className="w-full h-[90px] flex items-center justify-between px-6 border-b border-gray-100 shadow-xl ">
-      <h1 className="font-bold text-xl"> {getTitle()} </h1>
-      <div className="flex items-center gap-8">
-        <button className="w-12.5 h-12.5 rounded-full bg-[#F5F7FA] flex items-center justify-center cursor-pointer">
-          <IoMdNotificationsOutline size={30} className="text-gray-600" />
+    <header className="w-full h-[85px] bg-white flex items-center justify-between px-6 border-b border-gray-100 shadow-sm shrink-0">
+      <h1 className="font-bold text-xl text-gray-900">{getTitle()}</h1>
+      <div className="flex items-center gap-6">
+        <button
+          type="button"
+          className="w-11 h-11 rounded-full bg-[#F5F7FA] hover:bg-purple-50 flex items-center justify-center cursor-pointer transition-colors"
+        >
+          <IoMdNotificationsOutline size={24} className="text-gray-600 hover:text-[#7065F0]" />
         </button>
 
-        <div className="flex gap-2 items-center">
-          <div className="w-[45px] h-[45px] rounded-full ">
+        <div className="flex gap-3 items-center cursor-pointer p-1 rounded-xl">
+          <div className="w-[42px] h-[42px] rounded-full ring-2 ring-[#7065F0]/20 overflow-hidden">
             <img
               src={image}
               alt=""
-              className="w-full h-full object-cover rounded-full "
+              className="w-full h-full object-cover rounded-full"
             />
           </div>
 
           <div>
-            <p className="text-gray-600 font-medium">Admin</p>
-            <h1 className="text-gray-700">
+            <p className="text-gray-500 font-medium text-xs">Admin</p>
+            <h2 className="text-gray-800 font-semibold text-sm">
               {user?.email || "Useradmin@gmail.com"}
-            </h1>
+            </h2>
           </div>
-          <img src={arrowDown} alt="" className="cursor-pointer" />
+          <img src={arrowDown} alt="" className="w-2.5 opacity-60" />
         </div>
       </div>
     </header>

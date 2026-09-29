@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import api from "../../api/axiosConfig";
 import addProp from "../../assets/images/addProp.png";
-import image from "../../assets/images/image492.png";
 import EmptyState from "../../Components/admin/EmptyState";
+import ViewPropertyModal from "../../Components/admin/ViewPropertyModal";
+import EditPropertyModal from "../../Components/admin/EditPropertyModal";
+
 const StatusBadge = ({ status }) => {
   const styles = {
     Available: "bg-green-100 text-green-700",
@@ -25,6 +28,8 @@ const AdminProperties = () => {
   const [search, setSearch] = useState("");
   const [filterType, setFilterType] = useState("");
   const [filterStatus, setFilterStatus] = useState("");
+  const [viewProperty, setViewProperty] = useState(null);
+  const [editProperty, setEditProperty] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -59,7 +64,6 @@ const AdminProperties = () => {
     }
   };
 
- 
   const filtered = properties.filter((p) => {
     const matchSearch =
       p.title.toLowerCase().includes(search.toLowerCase()) ||
@@ -71,8 +75,9 @@ const AdminProperties = () => {
 
   if (loading)
     return (
-      <div className="flex items-center justify-center py-20">
-        <p className="text-[#7065F0]">Loading properties...</p>
+      <div className="flex flex-col items-center justify-center py-20 gap-3">
+        <div className="w-8 h-8 border-3 border-[#7065F0] border-t-transparent rounded-full animate-spin" />
+        <p className="text-[#7065F0] text-sm font-medium">Loading properties...</p>
       </div>
     );
 
@@ -90,9 +95,9 @@ const AdminProperties = () => {
               placeholder="Search Properties..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="pl-9 pr-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#7065F0] w-[220px]"
+              className="pl-9 pr-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#7065F0] w-[220px] transition-all focus:ring-2 focus:ring-[#7065F0]/20"
             />
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">
+            <span className="absolute left-3 top-3 text-gray-400 text-sm">
               🔍
             </span>
           </div>
@@ -100,7 +105,7 @@ const AdminProperties = () => {
           <select
             value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
-            className="px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#7065F0]"
+            className="px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#7065F0] transition-all cursor-pointer"
           >
             <option value="">All</option>
             <option value="Apartment">Apartment</option>
@@ -112,7 +117,7 @@ const AdminProperties = () => {
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
-            className="px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#7065F0]"
+            className="px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#7065F0] transition-all cursor-pointer"
           >
             <option value="">All Status</option>
             <option value="Available">Available</option>
@@ -122,8 +127,9 @@ const AdminProperties = () => {
         </div>
 
         <button
+          type="button"
           onClick={() => navigate("/admin/properties/add")}
-          className="bg-[#7065F0] text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-[#5a51d4] transition-colors flex items-center gap-2 cursor-pointer"
+          className="bg-[#7065F0] text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-[#5a51d4] transition-colors flex items-center gap-2 cursor-pointer shadow-sm"
         >
           <img src={addProp} alt="Add Property" className="w-5 h-5" />
           Add New Property
@@ -162,7 +168,7 @@ const AdminProperties = () => {
               {filtered.map((property) => (
                 <tr
                   key={property._id}
-                  className="border-b border-gray-50 hover:bg-gray-50"
+                  className="border-b border-gray-50 hover:bg-gray-50 transition-colors"
                 >
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-3">
@@ -176,14 +182,14 @@ const AdminProperties = () => {
                       </span>
                     </div>
                   </td>
-                  <td className="py-3 px-4">
+                  <td className="py-3 px-3">
                     <span
                       className={`text-xs font-semibold ${property.status === "For Rent" ? "text-orange-500" : "text-green-600"}`}
                     >
                       {property.status}
                     </span>
                   </td>
-                  <td className="py-3 px-4 text-gray-600">
+                  <td className="py-3 px-3 text-gray-600">
                     {property.location}
                   </td>
                   <td className="py-3 px-4 text-gray-800 font-medium">
@@ -199,23 +205,24 @@ const AdminProperties = () => {
                       year: "numeric",
                     })}
                   </td>
-                  <td className="py-3 px-4">
+                  <td className=" px-4">
                     <div className="flex items-center gap-3">
-                      <Link
-                        to={`/detail-properties/${property._id}`}
-                        className="text-[#7065F0] font-medium hover:underline"
+                      <button
+                        type="button"
+                        onClick={() => setViewProperty(property)}
+                        className="text-[#7065F0] cursor-pointer font-medium hover:underline"
                       >
                         View
-                      </Link>
+                      </button>
                       <button
-                        onClick={() =>
-                          navigate(`/admin/properties/edit/${property._id}`)
-                        }
-                        className="text-gray-600 font-medium hover:underline cursor-pointer"
+                        type="button"
+                        onClick={() => setEditProperty(property)}
+                        className="text-gray-600 font-medium cursor-pointer hover:underline"
                       >
                         Edit
                       </button>
                       <button
+                        type="button"
                         onClick={() =>
                           handleToggleAvailability(
                             property._id,
@@ -245,24 +252,70 @@ const AdminProperties = () => {
             Showing {filtered.length} of {properties.length}
           </p>
           <div className="flex items-center gap-1">
-            <button className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100">
+            <button
+              type="button"
+              className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 cursor-pointer"
+            >
               «
             </button>
-            <button className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100">
+            <button
+              type="button"
+              className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 cursor-pointer"
+            >
               ‹
             </button>
-            <button className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#7065F0] text-white">
+            <button
+              type="button"
+              className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#7065F0] text-white cursor-pointer"
+            >
               1
             </button>
-            <button className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100">
+            <button
+              type="button"
+              className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 cursor-pointer"
+            >
               ›
             </button>
-            <button className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100">
+            <button
+              type="button"
+              className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 cursor-pointer"
+            >
               »
             </button>
           </div>
         </div>
       </div>
+
+      <AnimatePresence>
+        {viewProperty && (
+          <ViewPropertyModal
+            key="view-modal"
+            property={viewProperty}
+            onClose={() => setViewProperty(null)}
+            onEdit={() => {
+              setEditProperty(viewProperty);
+              setViewProperty(null);
+            }}
+            onToggleAvailability={handleToggleAvailability}
+          />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {editProperty && (
+          <EditPropertyModal
+            key="edit-modal"
+            property={editProperty}
+            onClose={() => setEditProperty(null)}
+            onSave={(updated) => {
+              setProperties((prev) =>
+                prev.map((p) => (p._id === updated._id ? updated : p)),
+              );
+              setEditProperty(null);
+            }}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 };

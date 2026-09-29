@@ -12,7 +12,6 @@ import map from "../assets/images/Map.png";
 import api from "../api/axiosConfig";
 import BookmarkButton from "../Components/BookmarkButton";
 import PropertyCard from "../Components/PropertyCard";
-
 const DetailedProperties = () => {
   const { id } = useParams();
   const [property, setProperty] = useState(null);
@@ -32,7 +31,7 @@ const DetailedProperties = () => {
           .sort(() => Math.random() - 0.5)
           .slice(0, 3);
         setSimilarProperties(others);
-      } catch (error) {
+      } catch {
         setError("Failed to load property");
       } finally {
         setLoading(false);
@@ -44,7 +43,8 @@ const DetailedProperties = () => {
   if (loading)
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <p className="text-[#7065F0] text-lg font-medium">
+        <div className="w-9 h-9 border-3 border-[#7065F0] border-t-transparent rounded-full animate-spin" />
+        <p className="ml-3 text-[#7065F0] text-lg font-medium">
           Loading property...
         </p>
       </div>
@@ -58,30 +58,35 @@ const DetailedProperties = () => {
     );
 
   return (
-    <main>
-      <div className="layout py-6">
+    <main className="pb-16">
+      <div className="layout py-8">
+        {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-          <Link to="/properties" className="hover:text-[#7065F0]">
+          <Link to="/properties" className="hover:text-[#7065F0] transition-colors">
             Properties
           </Link>
           <span>›</span>
-          <span className="text-gray-800 font-medium">{property.title}</span>
+          <span className="text-gray-800 font-medium truncate">{property.title}</span>
         </div>
 
+        {/* Title & Location Header */}
         <div className="flex flex-col gap-2 mb-6">
-          <h1 className="text-2xl sm:text-[32px] font-bold">
+          <h1 className="text-2xl sm:text-[34px] font-bold text-gray-900">
             {property.title}
           </h1>
           <p className="text-sm sm:text-base font-normal flex gap-2 items-center text-[#403F3F]">
-            <IoLocationOutline className="h-5 w-4 shrink-0" />
+            <IoLocationOutline className="h-5 w-4 shrink-0 text-[#7065F0]" />
             {property.location}
           </p>
         </div>
 
+        {/* Images Gallery */}
         <div className="flex flex-col lg:flex-row gap-4">
-          <div className="relative w-full lg:w-[63%] h-[250px] sm:h-[380px] lg:h-[462px] rounded-lg overflow-hidden">
+          <div className="relative w-full lg:w-[63%] h-[280px] sm:h-[400px] lg:h-[462px] rounded-2xl overflow-hidden shadow-md group">
             <button
-              className={`absolute top-4 left-4 rounded-full px-4 py-2 text-white z-10 text-sm ${property.status === "For Sale" ? "bg-[#097521]" : "bg-[#FF7A37]"}`}
+              className={`absolute top-4 left-4 rounded-full px-4 py-1.5 text-white z-10 text-xs sm:text-sm font-medium shadow-sm ${
+                property.status === "For Sale" ? "bg-[#097521]" : "bg-[#FF7A37]"
+              }`}
             >
               {property.status}
             </button>
@@ -94,91 +99,96 @@ const DetailedProperties = () => {
             <img
               src={property.images[0]}
               alt={property.title}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
             />
           </div>
 
           <div className="flex flex-row lg:flex-col gap-4 w-full lg:w-[35%]">
-            <div className="w-1/2 lg:w-full h-[150px] sm:h-[180px] lg:h-[214px] rounded-lg overflow-hidden">
+            <div className="w-1/2 lg:w-full h-[150px] sm:h-[190px] lg:h-[220px] rounded-2xl overflow-hidden shadow-sm group">
               <img
                 src={property.images[1]}
                 alt={property.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
               />
             </div>
-            <div className="w-1/2 lg:w-full h-[150px] sm:h-[180px] lg:h-[214px] rounded-lg overflow-hidden">
+            <div className="w-1/2 lg:w-full h-[150px] sm:h-[190px] lg:h-[220px] rounded-2xl overflow-hidden shadow-sm group">
               <img
                 src={property.images[2]}
                 alt={property.title}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
               />
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col lg:flex-row justify-between items-start mt-6 gap-4">
-          <div className="w-full lg:w-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 rounded-2xl p-4 sm:p-6 bg-white border border-gray-200 shadow-sm">
+        {/* Key Features Banner */}
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mt-6 gap-4 p-5 sm:p-6 rounded-2xl bg-white border border-gray-200 shadow-sm">
+          <div className="w-full lg:w-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
             <div className="flex flex-col gap-1">
-              <h1 className="font-semibold text-sm sm:text-base">Bedrooms</h1>
-              <p className="flex items-center gap-2 text-gray-600 text-sm sm:text-base">
-                <MdOutlineBedroomChild /> {property.rooms}
+              <h2 className="text-xs uppercase font-semibold text-gray-400">Bedrooms</h2>
+              <p className="flex items-center gap-2 text-gray-800 font-medium text-base">
+                <MdOutlineBedroomChild className="text-[#7065F0] text-lg" /> {property.rooms}
               </p>
             </div>
             <div className="flex flex-col gap-1">
-              <h1 className="font-semibold text-sm sm:text-base">Bathrooms</h1>
-              <p className="flex items-center gap-2 text-gray-600 text-sm sm:text-base">
-                <LuBath /> {property.bath}
+              <h2 className="text-xs uppercase font-semibold text-gray-400">Bathrooms</h2>
+              <p className="flex items-center gap-2 text-gray-800 font-medium text-base">
+                <LuBath className="text-[#7065F0] text-lg" /> {property.bath}
               </p>
             </div>
             <div className="flex flex-col gap-1">
-              <h1 className="font-semibold text-sm sm:text-base">
-                Square Area
-              </h1>
-              <p className="flex items-center gap-2 text-gray-600 text-sm sm:text-base">
-                <LuSquareArrowOutUpLeft /> {property.squareArea}
+              <h2 className="text-xs uppercase font-semibold text-gray-400">Square Area</h2>
+              <p className="flex items-center gap-2 text-gray-800 font-medium text-base">
+                <LuSquareArrowOutUpLeft className="text-[#7065F0] text-lg" /> {property.squareArea}
               </p>
             </div>
             <div className="flex flex-col gap-1">
-              <h1 className="font-semibold text-sm sm:text-base">Parking</h1>
-              <p className="flex items-center gap-2 text-gray-600 text-sm sm:text-base">
-                <RiCarWashingLine /> {property.parking}
+              <h2 className="text-xs uppercase font-semibold text-gray-400">Parking</h2>
+              <p className="flex items-center gap-2 text-gray-800 font-medium text-base">
+                <RiCarWashingLine className="text-[#7065F0] text-lg" /> {property.parking}
               </p>
             </div>
             <div className="flex flex-col gap-1">
-              <h1 className="font-semibold text-sm sm:text-base">Status</h1>
-              <p className="text-gray-600 text-sm sm:text-base">
-                {property.status}
-              </p>
+              <h2 className="text-xs uppercase font-semibold text-gray-400">Status</h2>
+              <p className="text-gray-800 font-medium text-base">{property.status}</p>
             </div>
           </div>
-          <div className="shrink-0">
-            <h1 className="text-2xl sm:text-[32px] lg:text-[40px] font-bold">
-              ₦{property.price.toLocaleString()}/year
+          <div className="shrink-0 mt-4 lg:mt-0 pt-4 lg:pt-0 border-t lg:border-t-0 border-gray-100 w-full lg:w-auto text-left lg:text-right">
+            <p className="text-xs uppercase font-semibold text-gray-400">Rent Price</p>
+            <h1 className="text-2xl sm:text-[32px] font-bold text-[#7065F0]">
+              ₦{property.price.toLocaleString()}
+              <span className="text-sm font-normal text-gray-500">/year</span>
             </h1>
           </div>
         </div>
 
+        {/* Content & Sidebar */}
         <section className="py-8 sm:py-10">
           <div className="flex flex-col lg:flex-row gap-8">
             <div className="flex-1 flex flex-col gap-6">
-              <div className="rounded-2xl p-5 sm:p-6 bg-white border border-gray-200 shadow-sm">
-                <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-3">
+              {/* About */}
+              <div className="rounded-2xl p-6 bg-white border border-gray-200 shadow-sm">
+                <h2 className="text-lg font-bold text-gray-900 mb-3">
                   About this property
                 </h2>
-                <p className="text-gray-600 leading-relaxed text-sm sm:text-[15px]">
+                <p className="text-gray-600 leading-relaxed text-sm sm:text-base">
                   {property.description}
                 </p>
               </div>
 
-              <div className="rounded-2xl p-5 sm:p-6 bg-white border border-gray-200 shadow-sm">
-                <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-4 sm:mb-5">
+              {/* Property Features */}
+              <div className="rounded-2xl p-6 bg-white border border-gray-200 shadow-sm">
+                <h2 className="text-lg font-bold text-gray-900 mb-4 sm:mb-5">
                   Property Features
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3">
                   {property.features.map((feat, i) => (
-                    <div key={i} className="flex items-center gap-3">
+                    <div
+                      key={i}
+                      className="flex items-center gap-3 cursor-default"
+                    >
                       <BsCheckSquareFill className="text-[#7065F0] w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
-                      <span className="text-gray-700 text-sm sm:text-[15px]">
+                      <span className="text-gray-700 text-sm sm:text-base">
                         {feat}
                       </span>
                     </div>
@@ -186,24 +196,25 @@ const DetailedProperties = () => {
                 </div>
               </div>
 
-              <div className="rounded-2xl p-5 sm:p-6 bg-white border border-gray-200 shadow-sm">
-                <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-4 sm:mb-5">
+              {/* Location */}
+              <div className="rounded-2xl p-6 bg-white border border-gray-200 shadow-sm">
+                <h2 className="text-lg font-bold text-gray-900 mb-4">
                   Location
                 </h2>
-                <div className="relative w-full h-56 sm:h-72 rounded-2xl overflow-hidden border border-gray-200">
+                <div className="relative w-full h-56 sm:h-72 rounded-2xl overflow-hidden border border-gray-200 shadow-inner">
                   <img
                     src={map}
                     alt=""
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 bg-white rounded-2xl shadow-lg flex items-center gap-3 p-3 max-w-[200px]">
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-2xl shadow-xl flex items-center gap-3 p-3 max-w-[220px] border border-gray-100">
                     <img
                       src={property.images[0]}
                       alt=""
-                      className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl object-cover shrink-0"
+                      className="w-12 h-12 rounded-xl object-cover shrink-0"
                     />
                     <div className="min-w-0">
-                      <p className="font-semibold text-gray-900 text-xs sm:text-sm truncate">
+                      <p className="font-semibold text-gray-900 text-xs truncate">
                         {property.title}
                       </p>
                       <div className="flex items-center gap-1 mt-1">
@@ -218,75 +229,86 @@ const DetailedProperties = () => {
               </div>
             </div>
 
-            <div className="w-full lg:w-[340px] flex flex-col gap-6">
-              <div className="rounded-2xl border border-gray-200 bg-white shadow-sm p-5 sm:p-6">
-                <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-4 sm:mb-5">
+            {/* Sidebar */}
+            <div className="w-full lg:w-[360px] flex flex-col gap-6">
+              {/* Agent Detail */}
+              <div className="rounded-2xl border border-gray-200 bg-white shadow-sm p-6">
+                <h2 className="text-lg font-bold text-gray-900 mb-4">
                   Agent Detail
                 </h2>
                 <div className="flex items-center gap-4 mb-5">
                   <img
                     src={agentImg}
                     alt="Agent"
-                    className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover"
+                    className="w-14 h-14 rounded-full object-cover ring-2 ring-purple-100"
                   />
                   <div>
-                    <p className="font-semibold text-gray-900 text-sm sm:text-[15px]">
+                    <p className="font-semibold text-gray-900 text-base">
                       Ibrahim Moshood
                     </p>
-                    <p className="text-xs sm:text-sm text-gray-500">
-                      Real Estate Agent
+                    <p className="text-xs text-gray-500">
+                      Licensed Real Estate Agent
                     </p>
                   </div>
                 </div>
-                <button className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-[#7065F0] text-white font-semibold text-sm sm:text-[15px] hover:bg-[#5a51d4] transition-colors">
+                <button
+                  type="button"
+                  className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl bg-[#7065F0] hover:bg-[#5a51d4] text-white font-medium text-sm shadow-md transition-colors cursor-pointer"
+                >
                   <FiPhone className="w-4 h-4" />
                   Call Agent
                 </button>
               </div>
 
-              <div className="rounded-2xl border border-gray-200 bg-white shadow-sm p-5 sm:p-6">
-                <h2 className="text-base sm:text-lg font-bold text-gray-900 mb-4 sm:mb-5">
+              {/* Schedule Tour */}
+              <div className="rounded-2xl border border-gray-200 bg-white shadow-sm p-6">
+                <h2 className="text-lg font-bold text-gray-900 mb-4">
                   Schedule a Tour
                 </h2>
                 <div className="flex gap-3 mb-5">
-                  <button
-                    onClick={() => setTourType("In Person")}
-                    className={`flex-1 py-2.5 rounded-lg font-semibold text-sm ${tourType === "In Person" ? "bg-[#7065F0] text-white" : "border border-[#7065F0] text-[#7065F0] bg-white"}`}
-                  >
-                    In Person
-                  </button>
-                  <button
-                    onClick={() => setTourType("Virtual")}
-                    className={`flex-1 py-2.5 rounded-lg font-semibold text-sm ${tourType === "Virtual" ? "bg-[#7065F0] text-white" : "border border-[#7065F0] text-[#7065F0] bg-white"}`}
-                  >
-                    Virtual
-                  </button>
+                  {["In Person", "Virtual"].map((type) => (
+                    <button
+                      key={type}
+                      type="button"
+                      onClick={() => setTourType(type)}
+                      className={`flex-1 py-2.5 rounded-xl font-medium text-sm transition-all cursor-pointer ${
+                        tourType === type
+                          ? "bg-[#7065F0] text-white shadow-sm"
+                          : "border border-gray-300 text-gray-600 bg-white hover:bg-gray-50"
+                      }`}
+                    >
+                      {type}
+                    </button>
+                  ))}
                 </div>
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-3.5">
                   <input
                     type="date"
-                    className="w-full h-12 px-4 rounded-xl border border-gray-200 bg-white text-gray-600 text-sm focus:outline-none focus:border-[#7065F0]"
+                    className="w-full h-11 px-4 rounded-xl border border-gray-200 bg-gray-50 text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-[#7065F0]/30"
                   />
                   <input
                     type="time"
-                    className="w-full h-12 px-4 rounded-xl border border-gray-200 bg-white text-gray-600 text-sm focus:outline-none focus:border-[#7065F0]"
+                    className="w-full h-11 px-4 rounded-xl border border-gray-200 bg-gray-50 text-gray-700 text-sm focus:outline-none focus:ring-2 focus:ring-[#7065F0]/30"
                   />
                   <input
                     type="text"
-                    placeholder="Name"
-                    className="w-full h-12 px-4 rounded-xl border border-gray-200 bg-white text-sm placeholder-gray-400 focus:outline-none focus:border-[#7065F0]"
+                    placeholder="Your Name"
+                    className="w-full h-11 px-4 rounded-xl border border-gray-200 bg-gray-50 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#7065F0]/30"
                   />
                   <input
                     type="email"
-                    placeholder="Email"
-                    className="w-full h-12 px-4 rounded-xl border border-gray-200 bg-white text-sm placeholder-gray-400 focus:outline-none focus:border-[#7065F0]"
+                    placeholder="Your Email"
+                    className="w-full h-11 px-4 rounded-xl border border-gray-200 bg-gray-50 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#7065F0]/30"
                   />
                   <textarea
-                    placeholder="Message"
-                    rows={4}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white text-sm placeholder-gray-400 focus:outline-none focus:border-[#7065F0] resize-none"
+                    placeholder="Optional message..."
+                    rows={3}
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#7065F0]/30 resize-none"
                   />
-                  <button className="w-full py-3.5 rounded-xl bg-[#7065F0] text-white font-semibold text-sm sm:text-[15px] hover:bg-[#5a51d4] transition-colors">
+                  <button
+                    type="button"
+                    className="w-full py-3.5 rounded-xl bg-[#7065F0] hover:bg-[#5a51d4] text-white font-medium text-sm shadow-md transition-colors cursor-pointer"
+                  >
                     Submit Tour Request
                   </button>
                 </div>
@@ -295,10 +317,11 @@ const DetailedProperties = () => {
           </div>
         </section>
 
-        <div className="mt-6 mb-16">
-          <h1 className="text-2xl sm:text-[32px] font-semibold mb-6">
+        {/* Similar Properties */}
+        <div className="mt-8 mb-16">
+          <h2 className="text-2xl sm:text-[30px] font-bold text-gray-900 mb-6">
             Similar Properties
-          </h1>
+          </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 items-stretch">
             {similarProperties.map((prop) => (
               <PropertyCard key={prop._id} property={prop} />

@@ -3,8 +3,8 @@ import { useAuth } from "../context/AuthContext";
 
 const PublicRoute = ({ children }) => {
   const { user, loading } = useAuth();
-  // if (loading) return <div>Loading...</div>;
-  if (user) return <Navigate to="/" />;
+  if (loading) return null;
+  if (user) return <Navigate to="/" replace />;
   return children;
 };
 

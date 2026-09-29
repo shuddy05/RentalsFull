@@ -1,5 +1,6 @@
 import { useContext, createContext, useState, useEffect } from "react";
 import api from "../api/axiosConfig";
+
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -7,16 +8,9 @@ export const AuthProvider = ({ children }) => {
     const cached = localStorage.getItem("user");
     return cached ? JSON.parse(cached) : null;
   });
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      fetchUser();
-    } else {
-      setLoading(false);
-    }
-  }, []);
+  const [loading, setLoading] = useState(() => {
+    return Boolean(localStorage.getItem("token"));
+  });
 
   const fetchUser = async () => {
     try {
@@ -33,6 +27,37 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    let ignore = false;
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    api
+      .get("/auth/user")
+      .then((res) => {
+        if (!ignore) {
+          setUser(res.data.user);
+          localStorage.setItem("user", JSON.stringify(res.data.user));
+        }
+      })
+      .catch((error) => {
+        if (!ignore && error.response?.status === 401) {
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          setUser(null);
+        }
+      })
+      .finally(() => {
+        if (!ignore) {
+          setLoading(false);
+        }
+      });
+
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -52,4 +77,5 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => useContext(AuthContext);

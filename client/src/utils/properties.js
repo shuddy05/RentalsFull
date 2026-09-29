@@ -1,4 +1,3 @@
-import { image, title } from "framer-motion/client";
 import image1 from "../assets/images/1.png";
 import image2 from "../assets/images/2.jpg";
 import image3 from "../assets/images/3.jpg";

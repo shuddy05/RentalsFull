@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import StatCard from "../../Components/admin/StatCard";
 import { BsHousesFill } from "react-icons/bs";
 import { MdCheckCircle, MdPendingActions } from "react-icons/md";
@@ -24,6 +25,7 @@ const StatusBadge = ({ status }) => {
 
 const Dashboard = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [stats, setStats] = useState(null);
   const [recentProperties, setRecentProperties] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -31,12 +33,9 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const [statsRes, propertiesRes] = await Promise.all([
-          api.get("/api/admin/dashboard-stats"),
-          api.get("/api/admin/properties"),
-        ]);
-        setStats(statsRes.data);
-        setRecentProperties(propertiesRes.data.properties);
+        const res = await api.get("/api/admin/dashboard-stats");
+        setStats(res.data);
+        setRecentProperties(res.data.recentProperties);
       } catch (error) {
         console.error("Failed to fetch dashboard:", error.response?.data);
       } finally {
@@ -48,14 +47,15 @@ const Dashboard = () => {
 
   if (loading)
     return (
-      <div className="flex items-center justify-center py-20">
-        <p className="text-[#7065F0]">Loading...</p>
+      <div className="flex flex-col items-center justify-center py-20 gap-3">
+        <div className="w-8 h-8 border-3 border-[#7065F0] border-t-transparent rounded-full animate-spin" />
+        <p className="text-[#7065F0] text-sm font-medium">Loading dashboard...</p>
       </div>
     );
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="bg-[#7065F0] rounded-xl px-6 py-5">
+      <div className="bg-[#7065F0] rounded-xl px-6 py-5 shadow-sm">
         <h2 className="text-white text-xl font-bold">
           Welcome {user?.email?.split("@")[0]} 👋
         </h2>
@@ -89,7 +89,7 @@ const Dashboard = () => {
         />
       </div>
 
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm py-6 px-2 ">
+      <div className="bg-white rounded-xl border border-gray-100 shadow-sm py-6 px-4">
         <h2 className="text-lg font-bold text-gray-800 mb-4">
           Recent Activity
         </h2>
@@ -97,7 +97,7 @@ const Dashboard = () => {
         {recentProperties.length === 0 ? (
           <EmptyState />
         ) : (
-          <div className="overflow-x-auto ">
+          <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b bg-[#FEFAFA] border-gray-200">
@@ -128,7 +128,7 @@ const Dashboard = () => {
                 {recentProperties.map((property) => (
                   <tr
                     key={property._id}
-                    className="border-b border-gray-100 hover:bg-gray-50"
+                    className="border-b border-gray-100 hover:bg-gray-50 transition-colors"
                   >
                     <td className="py-3 px-4 text-gray-500">
                       {new Date(property.createdAt).toLocaleDateString(
@@ -157,8 +157,9 @@ const Dashboard = () => {
                     </td>
                     <td className="py-3 px-4">
                       <button
+                        type="button"
                         onClick={() =>
-                          (window.location.href = `/detail-properties/${property._id}`)
+                          navigate(`/detail-properties/${property._id}`)
                         }
                         className="text-[#7065F0] font-medium hover:underline cursor-pointer"
                       >

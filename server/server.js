@@ -2,6 +2,9 @@ import "dotenv/config";
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+import dns from "node:dns";
+
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
 import propertyRouter from "./routes/propertiesRouter.js";
 import { router as authRouter } from "./routes/authRouter.js";
 import savedPropertiesRouter from "./routes/savedPropertiesRouter.js";

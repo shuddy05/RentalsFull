@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
+import { FaHeart as HeartSolid, FaRegHeart as HeartRegular } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import api from "../api/axiosConfig";
@@ -32,14 +32,11 @@ const BookmarkButton = ({ propertyId, savedProperties = [] }) => {
         await api.delete(`/api/saved-properties/${propertyId}`);
         setSaved(false);
       } else {
-        const res = await api.post(`/api/saved-properties/${propertyId}`);
-        console.log("save response:", res.data);
+        await api.post(`/api/saved-properties/${propertyId}`);
         setSaved(true);
       }
     } catch (error) {
-      console.error("Full error:", error);
-      console.error("Error status:", error.response?.status);
-      console.error("Error message:", error.message);
+      console.error("Bookmark error:", error);
     } finally {
       setLoading(false);
     }
@@ -47,14 +44,15 @@ const BookmarkButton = ({ propertyId, savedProperties = [] }) => {
 
   return (
     <button
+      type="button"
       onClick={handleBookmark}
       disabled={loading}
-      className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full border border-gray-400 bg-white disabled:opacity-50 cursor-pointer"
+      className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full border border-gray-400 bg-white disabled:opacity-50 cursor-pointer shadow-sm transition-all hover:scale-105 active:scale-95 hover:border-red-300"
     >
       {saved ? (
-        <FaHeart className="h-5 w-5 sm:h-6 sm:w-6 text-red-500" />
+        <HeartSolid className="h-5 w-5 sm:h-6 sm:w-6 text-red-500 transition-transform" />
       ) : (
-        <FaRegHeart className="h-5 w-5 sm:h-6 sm:w-6 text-gray-500" />
+        <HeartRegular className="h-5 w-5 sm:h-6 sm:w-6 text-gray-500 hover:text-red-400 transition-colors" />
       )}
     </button>
   );
