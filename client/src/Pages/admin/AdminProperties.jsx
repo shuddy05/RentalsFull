@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import api from "../../api/axiosConfig";
-import addProp from "../../assets/images/addProp.png";
+import addProp from "../../assets/images/addprop.png";
 import EmptyState from "../../Components/admin/EmptyState";
 import ViewPropertyModal from "../../Components/admin/ViewPropertyModal";
 import EditPropertyModal from "../../Components/admin/EditPropertyModal";

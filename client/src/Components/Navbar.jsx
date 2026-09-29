@@ -19,7 +19,9 @@ const Navbar = () => {
 
   const navLinks = user
     ? [
+      { label: "Home", path: "/" },
         { label: "Properties", path: "/properties" },
+        { label: "About Us", path: "/about" },
         { label: "Saved Properties", path: "/saved-properties" },
         { label: "Contact Us", path: "/contact" },
       ]
@@ -27,7 +29,7 @@ const Navbar = () => {
         { label: "Home", path: "/" },
         { label: "Properties", path: "/properties" },
         { label: "About Us", path: "/about" },
-        { label: "List Properties", path: "/detail-properties" },
+         { label: "Saved Properties", path: "/saved-properties" },
         { label: "Contact Us", path: "/contact" },
       ];
 

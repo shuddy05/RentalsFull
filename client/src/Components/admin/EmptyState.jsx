@@ -1,6 +1,6 @@
 import React from "react";
 import image from "../../assets/images/image492.png";
-import addProp from "../../assets/images/addProp.png";
+import addProp from "../../assets/images/addprop.png";
 import { useNavigate } from "react-router-dom";
 
 const EmptyState = () => {

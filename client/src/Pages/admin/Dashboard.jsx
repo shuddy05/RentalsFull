@@ -57,7 +57,7 @@ const Dashboard = () => {
     <div className="flex flex-col gap-6">
       <div className="bg-[#7065F0] rounded-xl px-6 py-5 shadow-sm">
         <h2 className="text-white text-xl font-bold">
-          Welcome {user?.email?.split("@")[0]} 👋
+          Welcome {user?.email?.split("@")[0]} 
         </h2>
         <p className="text-white/80 text-sm mt-1">
           Here's a quick snapshot of your Properties.
