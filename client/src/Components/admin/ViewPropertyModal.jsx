@@ -103,25 +103,33 @@ const ViewPropertyModal = ({
               <div className="flex flex-col gap-1">
                 <p className="text-sm text-gray-500">Bedroom</p>
                 <p className="text-sm font-medium text-gray-800 border border-gray-200 rounded-lg px-3 py-2.5 bg-gray-50">
-                  {property.rooms}
+                  {typeof property.rooms === "number"
+                    ? `${property.rooms} ${property.rooms === 1 ? "Bedroom" : "Bedrooms"}`
+                    : property.rooms}
                 </p>
               </div>
               <div className="flex flex-col gap-1">
                 <p className="text-sm text-gray-500">Bathroom</p>
                 <p className="text-sm font-medium text-gray-800 border border-gray-200 rounded-lg px-3 py-2.5 bg-gray-50">
-                  {property.bath}
+                  {typeof property.bath === "number"
+                    ? `${property.bath} ${property.bath === 1 ? "Bathroom" : "Bathrooms"}`
+                    : property.bath}
                 </p>
               </div>
               <div className="flex flex-col gap-1">
                 <p className="text-sm text-gray-500">Square Area</p>
                 <p className="text-sm font-medium text-gray-800 border border-gray-200 rounded-lg px-3 py-2.5 bg-gray-50">
-                  {property.squareArea}
+                  {typeof property.squareArea === "number"
+                    ? `${property.squareArea.toLocaleString()} sq ft`
+                    : property.squareArea}
                 </p>
               </div>
               <div className="flex flex-col gap-1">
                 <p className="text-sm text-gray-500">Parking</p>
                 <p className="text-sm font-medium text-gray-800 border border-gray-200 rounded-lg px-3 py-2.5 bg-gray-50">
-                  {property.parking}
+                  {typeof property.parking === "number"
+                    ? `${property.parking} ${property.parking === 1 ? "Space" : "Spaces"}`
+                    : property.parking}
                 </p>
               </div>
             </div>

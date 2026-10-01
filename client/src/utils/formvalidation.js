@@ -66,9 +66,21 @@ export const addPropertySchema = yup.object().shape({
     .required("Enter amount")
     .typeError("Enter a valid amount"),
   location: yup.string().required("Location is required"),
-  rooms: yup.string().required("Enter number of bedrooms"),
-  bath: yup.string().required("Enter number of bathrooms"),
-  squareArea: yup.string().required("Enter square area"),
-  parking: yup.string().required("Enter parking number"),
+  rooms: yup
+    .number()
+    .typeError("Enter number of bedrooms")
+    .required("Enter number of bedrooms"),
+  bath: yup
+    .number()
+    .typeError("Enter number of bathrooms")
+    .required("Enter number of bathrooms"),
+  squareArea: yup
+    .number()
+    .typeError("Enter square area")
+    .required("Enter square area"),
+  parking: yup
+    .number()
+    .typeError("Enter parking number")
+    .required("Enter parking number"),
   images: yup.array().of(yup.string()).min(1, "At least one image is required"),
 });

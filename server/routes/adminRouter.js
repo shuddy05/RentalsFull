@@ -6,6 +6,7 @@ import {
   deleteUser,
   addProperty,
   getAllProperties,
+  getPropertyById,
   updateProperty,
   deleteProperty,
 } from "../controllers/adminController.js";
@@ -18,6 +19,7 @@ router.get("/dashboard-stats", auth, isAdmin, getDashboardStats);
 router.get("/users", auth, isAdmin, getAllUsers);
 router.delete("/users/:id", auth, isAdmin, deleteUser);
 router.get("/properties", auth, isAdmin, getAllProperties);
+router.get("/properties/:id", auth, isAdmin, getPropertyById);
 router.post("/properties", auth, isAdmin, addProperty);
 router.patch("/properties/:id", auth, isAdmin, updateProperty);
 router.put("/properties/:id", auth, isAdmin, updateProperty);

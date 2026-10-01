@@ -127,25 +127,37 @@ const DetailedProperties = () => {
             <div className="flex flex-col gap-1">
               <h2 className="text-xs uppercase font-semibold text-gray-400">Bedrooms</h2>
               <p className="flex items-center gap-2 text-gray-800 font-medium text-base">
-                <MdOutlineBedroomChild className="text-[#7065F0] text-lg" /> {property.rooms}
+                <MdOutlineBedroomChild className="text-[#7065F0] text-lg" />{" "}
+                {typeof property.rooms === "number"
+                  ? `${property.rooms} ${property.rooms === 1 ? "Bedroom" : "Bedrooms"}`
+                  : property.rooms}
               </p>
             </div>
             <div className="flex flex-col gap-1">
               <h2 className="text-xs uppercase font-semibold text-gray-400">Bathrooms</h2>
               <p className="flex items-center gap-2 text-gray-800 font-medium text-base">
-                <LuBath className="text-[#7065F0] text-lg" /> {property.bath}
+                <LuBath className="text-[#7065F0] text-lg" />{" "}
+                {typeof property.bath === "number"
+                  ? `${property.bath} ${property.bath === 1 ? "Bathroom" : "Bathrooms"}`
+                  : property.bath}
               </p>
             </div>
             <div className="flex flex-col gap-1">
               <h2 className="text-xs uppercase font-semibold text-gray-400">Square Area</h2>
               <p className="flex items-center gap-2 text-gray-800 font-medium text-base">
-                <LuSquareArrowOutUpLeft className="text-[#7065F0] text-lg" /> {property.squareArea}
+                <LuSquareArrowOutUpLeft className="text-[#7065F0] text-lg" />{" "}
+                {typeof property.squareArea === "number"
+                  ? `${property.squareArea.toLocaleString()} sq ft`
+                  : property.squareArea}
               </p>
             </div>
             <div className="flex flex-col gap-1">
               <h2 className="text-xs uppercase font-semibold text-gray-400">Parking</h2>
               <p className="flex items-center gap-2 text-gray-800 font-medium text-base">
-                <RiCarWashingLine className="text-[#7065F0] text-lg" /> {property.parking}
+                <RiCarWashingLine className="text-[#7065F0] text-lg" />{" "}
+                {typeof property.parking === "number"
+                  ? `${property.parking} ${property.parking === 1 ? "Space" : "Spaces"}`
+                  : property.parking}
               </p>
             </div>
             <div className="flex flex-col gap-1">

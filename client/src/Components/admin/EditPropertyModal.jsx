@@ -25,6 +25,11 @@ const EditPropertyModal = ({ property, onClose, onSave }) => {
     try {
       const res = await api.put(`/api/admin/properties/${property._id}`, {
         ...data,
+        price: Number(data.price),
+        rooms: Number(data.rooms),
+        bath: Number(data.bath),
+        squareArea: Number(data.squareArea),
+        parking: Number(data.parking),
         images: data.images.filter(Boolean),
         features: [
           data.wifi && "Free Wifi",
@@ -171,7 +176,7 @@ const EditPropertyModal = ({ property, onClose, onSave }) => {
             <div className="flex flex-col gap-2">
               <label className="font-medium text-sm">Bedroom</label>
               <input
-                type="text"
+                type="number"
                 {...register("rooms")}
                 className="outline-none w-full border border-gray-200 rounded-lg p-3 text-sm"
               />
@@ -180,7 +185,7 @@ const EditPropertyModal = ({ property, onClose, onSave }) => {
             <div className="flex flex-col gap-2">
               <label className="font-medium text-sm">Bathroom</label>
               <input
-                type="text"
+                type="number"
                 {...register("bath")}
                 className="outline-none w-full border border-gray-200 rounded-lg p-3 text-sm"
               />
@@ -189,7 +194,7 @@ const EditPropertyModal = ({ property, onClose, onSave }) => {
             <div className="flex flex-col gap-2">
               <label className="font-medium text-sm">Square Area</label>
               <input
-                type="text"
+                type="number"
                 {...register("squareArea")}
                 className="outline-none w-full border border-gray-200 rounded-lg p-3 text-sm"
               />
@@ -200,7 +205,7 @@ const EditPropertyModal = ({ property, onClose, onSave }) => {
             <div className="flex flex-col gap-2">
               <label className="font-medium text-sm">Parking</label>
               <input
-                type="text"
+                type="number"
                 {...register("parking")}
                 className="outline-none w-full border border-gray-200 rounded-lg p-3 text-sm"
               />

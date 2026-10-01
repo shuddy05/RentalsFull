@@ -36,7 +36,6 @@ const AdminProperties = () => {
     const fetchProperties = async () => {
       try {
         const res = await api.get("/api/admin/properties");
-        console.log("admin properties:", res.data);
         setProperties(res.data.properties);
       } catch (error) {
         console.error("Failed to fetch properties:", error.response?.data);
@@ -51,7 +50,7 @@ const AdminProperties = () => {
     const newAvailability =
       currentAvailability === "Available" ? "Unavailable" : "Available";
     try {
-      await api.patch(`/admin/properties/${id}`, {
+      await api.patch(`/api/admin/properties/${id}`, {
         availability: newAvailability,
       });
       setProperties((prev) =>
@@ -216,7 +215,9 @@ const AdminProperties = () => {
                       </button>
                       <button
                         type="button"
-                        onClick={() => setEditProperty(property)}
+                        onClick={() =>
+                          navigate(`/admin/properties/edit/${property._id}`)
+                        }
                         className="text-gray-600 font-medium cursor-pointer hover:underline"
                       >
                         Edit
@@ -293,7 +294,7 @@ const AdminProperties = () => {
             property={viewProperty}
             onClose={() => setViewProperty(null)}
             onEdit={() => {
-              setEditProperty(viewProperty);
+              navigate(`/admin/properties/edit/${viewProperty._id}`);
               setViewProperty(null);
             }}
             onToggleAvailability={handleToggleAvailability}

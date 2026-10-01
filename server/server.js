@@ -13,7 +13,10 @@ const app = express();
 
 const port = Number(process.env.PORT) || 1015;
 
-app.use(cors());
+const allowedOrigins = (process.env.CLIENT_URL || "http://localhost:5173")
+  .split(",")
+  .map((origin) => origin.trim());
+app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use(express.json());
 
 app.use("/auth", authRouter);

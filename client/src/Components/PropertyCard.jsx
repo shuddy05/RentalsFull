@@ -51,11 +51,23 @@ const PropertyCard = ({ property }) => {
             <div className="flex items-center gap-4 sm:gap-6 text-gray-600">
               <div className="flex items-center gap-2">
                 <PiBedBold className="text-[#7065F0]" />
-                <p className="text-sm sm:text-base">{rooms} beds</p>
+                <p className="text-sm sm:text-base">
+                  {typeof rooms === "number"
+                    ? `${rooms} ${rooms === 1 ? "bed" : "beds"}`
+                    : rooms?.includes?.("bed")
+                      ? rooms
+                      : `${rooms} beds`}
+                </p>
               </div>
               <div className="flex items-center gap-2">
                 <PiBathtubBold className="text-[#7065F0]" />
-                <p className="text-sm sm:text-base">{bath} baths</p>
+                <p className="text-sm sm:text-base">
+                  {typeof bath === "number"
+                    ? `${bath} ${bath === 1 ? "bath" : "baths"}`
+                    : bath?.includes?.("bath")
+                      ? bath
+                      : `${bath} baths`}
+                </p>
               </div>
             </div>
           </div>

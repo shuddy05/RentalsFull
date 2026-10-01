@@ -45,8 +45,22 @@ const App = () => {
                 path="/detail-properties/:id"
                 element={<DetailedProperties />}
               />
-              <Route path="/saved-properties" element={<SavedProperties />} />
-              <Route path="/account" element={<AccountSettings />} />
+              <Route
+                path="/saved-properties"
+                element={
+                  <ProtectedRoute>
+                    <SavedProperties />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/account"
+                element={
+                  <ProtectedRoute>
+                    <AccountSettings />
+                  </ProtectedRoute>
+                }
+              />
             </Route>
 
             <Route element={<AuthLayout />}>
@@ -73,6 +87,7 @@ const App = () => {
               <Route path="listings" element={<ListingRequests />} />
               <Route path="settings" element={<AdminAcountSettings />} />
               <Route path="properties/add" element={<AddNewProperty />} />
+              <Route path="properties/edit/:id" element={<EditProperty />} />
             </Route>
 
             <Route path="*" element={<Error404 />} />

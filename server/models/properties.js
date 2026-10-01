@@ -26,11 +26,11 @@ const propertySchema = new mongoose.Schema(
       required: true,
     },
     rooms: {
-      type: String,
+      type: Number,
       required: true,
     },
     bath: {
-      type: String,
+      type: Number,
       required: true,
     },
     description: {
@@ -42,11 +42,11 @@ const propertySchema = new mongoose.Schema(
       required: true,
     },
     squareArea: {
-      type: String,
+      type: Number,
       required: true,
     },
     parking: {
-      type: String,
+      type: Number,
       required: true,
     },
     images: {

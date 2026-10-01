@@ -21,6 +21,10 @@ export const auth = async (req, res, next) => {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findById(payload.userId).select("role");
 
+    if (!user) {
+      return res.status(401).json({ message: "User not found" });
+    }
+
     req.user = { userId: payload.userId, role: user.role };
 
     next();
