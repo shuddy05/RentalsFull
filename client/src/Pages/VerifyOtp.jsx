@@ -65,7 +65,7 @@ const VerifyOtp = () => {
         <div className="flex-1 flex items-center justify-center py-8">
           <form
             onSubmit={handleVerify}
-            className="w-full max-w-[540px] rounded-3xl py-10 px-6 sm:px-10 bg-white flex flex-col items-center gap-5 shadow-xl border border-gray-100"
+            className="w-full max-w-[550px] rounded-3xl py-10 px-6 sm:px-10 bg-white flex flex-col items-center gap-5 shadow-xl border border-gray-100"
           >
             <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-[#7065F0] flex justify-center items-center shadow-lg shadow-purple-500/30">
               <img
@@ -79,7 +79,7 @@ const VerifyOtp = () => {
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
                 OTP Verification
               </h1>
-              <p className="text-gray-500 text-sm mt-2 max-w-sm">
+              <p className="text-gray-500 text-sm mt-2 ">
                 Enter the 6-digit code sent to{" "}
                 <span className="font-semibold text-gray-800 break-all">{email}</span>
               </p>
