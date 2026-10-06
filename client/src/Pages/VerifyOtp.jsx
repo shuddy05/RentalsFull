@@ -56,10 +56,10 @@ const VerifyOtp = () => {
         >
           <img
             src={logo}
-            alt="Estatery Logo"
+            alt="Vista Reality Logo"
             className="h-10 sm:h-11 w-auto"
           />
-          <span className="font-bold text-2xl text-gray-900 tracking-tight">Estatery</span>
+          <span className="font-bold text-2xl text-gray-900 tracking-tight">Vista Reality</span>
         </div>
 
         <div className="flex-1 flex items-center justify-center py-8">

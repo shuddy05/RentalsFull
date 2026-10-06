@@ -9,12 +9,12 @@ const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 export const sendOTPEmail = async (email, otp) => {
   const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
   sendSmtpEmail.to = [{ email }];
-  sendSmtpEmail.sender = { email: process.env.BREVO_USER, name: "Rentals" };
+  sendSmtpEmail.sender = { email: process.env.BREVO_USER, name: "Vista Reality" };
   sendSmtpEmail.subject = "Password Reset OTP";
   sendSmtpEmail.htmlContent = `
     <div style="font-family: Arial, sans-serif; max-width: 500px; margin: 0 auto;">
       <div style="background: #4F46E5; padding: 30px; text-align: center;">
-        <h1 style="color: white; margin: 0;">Rentals</h1>
+        <h1 style="color: white; margin: 0;">Vista Reality</h1>
       </div>
       <div style="padding: 40px 30px;">
         <h2 style="color: #111827;">Password Reset Request</h2>
@@ -25,7 +25,7 @@ export const sendOTPEmail = async (email, otp) => {
         <p style="color: #6B7280;">Expires in <strong>10 minutes</strong>. If you didn't request this, ignore this email.</p>
       </div>
       <div style="background: #F9FAFB; padding: 20px; text-align: center;">
-        <p style="color: #9CA3AF; font-size: 12px;">© 2026 Rentals. All rights reserved.</p>
+        <p style="color: #9CA3AF; font-size: 12px;">© 2026 Vista Reality. All rights reserved.</p>
       </div>
     </div>
   `;

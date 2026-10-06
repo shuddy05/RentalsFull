@@ -49,10 +49,10 @@ const Navbar = () => {
         <Link to="/" className="flex items-center gap-2.5 shrink-0">
           <img
             src={logo}
-            alt="Estatery Logo"
+            alt="Vista Reality Logo"
             className="h-9 w-auto"
           />
-          <span className="font-bold text-xl text-gray-900 tracking-tight">Estatery</span>
+          <span className="font-bold text-xl text-gray-900 tracking-tight">Vista Reality</span>
         </Link>
 
         <ul className="hidden lg:flex items-center gap-8">

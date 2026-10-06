@@ -61,10 +61,10 @@ const Sidebar = () => {
         >
           <img
             src={logo}
-            alt="Estatery Logo"
+            alt="Vista Reality Logo"
             className="h-9 w-auto"
           />
-          <span className="font-bold text-xl text-gray-900 tracking-tight">Estatery</span>
+          <span className="font-bold text-xl text-gray-900 tracking-tight">Vista Reality</span>
         </div>
         <nav className="flex flex-col gap-1.5">
           {navLinks.map(({ label, path, icon }) => {

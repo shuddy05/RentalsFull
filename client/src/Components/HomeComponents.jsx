@@ -12,7 +12,7 @@ const HomeComponents = () => {
           <div className="flex flex-col lg:flex-row justify-between items-center gap-8 lg:gap-[73px]">
             <img
               src={newimage}
-              alt="About Estatery"
+              alt="About Vista Reality"
               className="w-full lg:w-[458px] h-[320px] rounded-2xl object-cover shadow-lg"
             />
             <div className="flex flex-col gap-8 text-center lg:text-left">
@@ -46,7 +46,7 @@ const HomeComponents = () => {
               Why choose us
             </span>
             <h1 className="text-2xl md:text-4xl font-bold text-center mb-12 text-gray-900">
-              Why Choose Estatery
+              Why Choose Vista Reality
             </h1>
             <div className="w-full grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {reasons.map((reason) => {
