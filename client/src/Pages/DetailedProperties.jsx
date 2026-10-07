@@ -20,23 +20,35 @@ const DetailedProperties = () => {
   const [error, setError] = useState(null);
   const [tourType, setTourType] = useState("In Person");
 
+  const fetchProperty = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await api.get(`/api/properties/${id}`);
+      setProperty(res.data);
+      const allRes = await api.get("/api/properties");
+      const others = allRes.data
+        .filter((p) => p._id !== id)
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 3);
+      setSimilarProperties(others);
+    } catch (err) {
+      console.error("Failed to load property:", err);
+      const isNetworkOrTimeout =
+        !err.response ||
+        err.code === "ECONNABORTED" ||
+        err.message === "Network Error";
+      setError(
+        isNetworkOrTimeout
+          ? "The server is taking longer than usual to respond or waking up. Please try again."
+          : err.response?.data?.message || "Failed to load property"
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchProperty = async () => {
-      try {
-        const res = await api.get(`/api/properties/${id}`);
-        setProperty(res.data);
-        const allRes = await api.get("/api/properties");
-        const others = allRes.data
-          .filter((p) => p._id !== id)
-          .sort(() => Math.random() - 0.5)
-          .slice(0, 3);
-        setSimilarProperties(others);
-      } catch {
-        setError("Failed to load property");
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchProperty();
   }, [id]);
 
@@ -52,8 +64,14 @@ const DetailedProperties = () => {
 
   if (error)
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <p className="text-red-500 text-lg">{error}</p>
+      <div className="flex flex-col items-center justify-center min-h-screen px-4 text-center">
+        <p className="text-red-500 text-lg mb-4 max-w-md">{error}</p>
+        <button
+          onClick={fetchProperty}
+          className="px-6 py-2.5 rounded-xl bg-[#7065F0] hover:bg-[#5a51d4] text-white font-medium cursor-pointer transition-colors shadow-sm"
+        >
+          Retry
+        </button>
       </div>
     );
 

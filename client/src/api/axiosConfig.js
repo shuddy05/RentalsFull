@@ -1,7 +1,9 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://rentalsfull-5.onrender.com",
+  baseURL:
+    import.meta.env.VITE_API_BASE_URL || "https://rentalsfull-5.onrender.com",
+  timeout: 60000,
 });
 
 api.interceptors.request.use(

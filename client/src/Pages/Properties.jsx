@@ -43,18 +43,32 @@ const Properties = () => {
   const [searchBudget, setSearchBudget] = useState("");
   const [searchLocation, setSearchLocation] = useState("");
   const [searched, setSearched] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 6;
+
+  const fetchProperties = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await api.get("/api/properties");
+      setProperties(res.data);
+    } catch (err) {
+      console.error("Failed to load properties:", err);
+      const isNetworkOrTimeout =
+        !err.response ||
+        err.code === "ECONNABORTED" ||
+        err.message === "Network Error";
+      setError(
+        isNetworkOrTimeout
+          ? "The server is taking longer than usual to respond or waking up (Render cold start). Please try again."
+          : err.response?.data?.message || "Failed to load properties"
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchProperties = async () => {
-      try {
-        const res = await api.get("/api/properties");
-        setProperties(res.data);
-      } catch {
-        setError("Failed to load properties");
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchProperties();
   }, []);
 
@@ -62,6 +76,7 @@ const Properties = () => {
     if (!searchType && !searchBudget && !searchLocation) return;
     setSearched(true);
     setActiveFilter("All");
+    setCurrentPage(1);
   };
 
   const handleClear = () => {
@@ -70,6 +85,7 @@ const Properties = () => {
     setSearchLocation("");
     setSearched(false);
     setActiveFilter("All");
+    setCurrentPage(1);
   };
 
   const filteredProperties = properties.filter((property) => {
@@ -93,6 +109,18 @@ const Properties = () => {
     return matchesStatus && matchesType && matchesBudget && matchesLocation;
   });
 
+  const totalPages = Math.max(1, Math.ceil(filteredProperties.length / ITEMS_PER_PAGE));
+  const validCurrentPage = Math.min(Math.max(1, currentPage), totalPages);
+  const startIndex = (validCurrentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = Math.min(startIndex + ITEMS_PER_PAGE, filteredProperties.length);
+  const paginatedProperties = filteredProperties.slice(startIndex, endIndex);
+
+  const handlePageChange = (newPage) => {
+    const targetPage = Math.min(Math.max(1, newPage), totalPages);
+    setCurrentPage(targetPage);
+    window.scrollTo({ top: 400, behavior: "smooth" });
+  };
+
   const showNoMatch = searched && filteredProperties.length === 0;
 
   if (loading)
@@ -107,8 +135,14 @@ const Properties = () => {
 
   if (error)
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <p className="text-red-500 text-lg">{error}</p>
+      <div className="flex flex-col items-center justify-center min-h-screen px-4 text-center">
+        <p className="text-red-500 text-lg mb-4 max-w-md">{error}</p>
+        <button
+          onClick={fetchProperties}
+          className="px-6 py-2.5 rounded-xl bg-[#7065F0] hover:bg-[#5a51d4] text-white font-medium cursor-pointer transition-colors shadow-sm"
+        >
+          Retry
+        </button>
       </div>
     );
 
@@ -215,6 +249,7 @@ const Properties = () => {
                   onClick={() => {
                     setActiveFilter(filter);
                     setSearched(false);
+                    setCurrentPage(1);
                   }}
                   className={`text-sm sm:text-base font-medium px-4 py-2 cursor-pointer flex-1 sm:flex-none sm:w-[119px] rounded-xl transition-all shadow-sm ${
                     activeFilter === filter
@@ -233,7 +268,7 @@ const Properties = () => {
           ) : (
             <>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                {filteredProperties.map((property) => (
+                {paginatedProperties.map((property) => (
                   <PropertyCard key={property._id} property={property} />
                 ))}
               </div>
@@ -241,23 +276,91 @@ const Properties = () => {
               <div className="w-full bg-white rounded-2xl border border-gray-200 px-4 sm:px-6 py-4 shadow-sm">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                   <p className="text-gray-500 text-sm text-center sm:text-left">
-                    Showing <span className="font-semibold text-gray-800">{filteredProperties.length}</span> of <span className="font-semibold text-gray-800">{properties.length}</span>
+                    Showing{" "}
+                    <span className="font-semibold text-gray-800">
+                      {filteredProperties.length === 0
+                        ? 0
+                        : `${startIndex + 1} - ${endIndex}`}
+                    </span>{" "}
+                    of{" "}
+                    <span className="font-semibold text-gray-800">
+                      {filteredProperties.length}
+                    </span>{" "}
+                    properties
                   </p>
-                  <div className="flex items-center justify-center sm:justify-end gap-4 sm:gap-6">
+                  <div className="flex items-center justify-center sm:justify-end gap-3 sm:gap-4 flex-wrap">
                     <span className="text-gray-800 font-medium text-sm sm:text-base whitespace-nowrap">
-                      Page 1 of 1
+                      Page {validCurrentPage} of {totalPages}
                     </span>
-                    <div className="flex items-center gap-1 sm:gap-2">
-                      {["«", "‹", "›", "»"].map((symbol, idx) => (
+                    <div className="flex items-center gap-1 sm:gap-1.5">
+                      <button
+                        type="button"
+                        onClick={() => handlePageChange(1)}
+                        disabled={validCurrentPage <= 1}
+                        title="First Page"
+                        className={`w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl transition-colors ${
+                          validCurrentPage <= 1
+                            ? "text-gray-300 cursor-not-allowed"
+                            : "text-gray-700 hover:bg-purple-50 hover:text-[#7065F0] cursor-pointer"
+                        }`}
+                      >
+                        «
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handlePageChange(validCurrentPage - 1)}
+                        disabled={validCurrentPage <= 1}
+                        title="Previous Page"
+                        className={`w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl transition-colors ${
+                          validCurrentPage <= 1
+                            ? "text-gray-300 cursor-not-allowed"
+                            : "text-gray-700 hover:bg-purple-50 hover:text-[#7065F0] cursor-pointer"
+                        }`}
+                      >
+                        ‹
+                      </button>
+
+                      {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
                         <button
-                          key={idx}
-                          className={`w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl cursor-pointer ${
-                            idx < 2 ? "text-gray-400 hover:bg-gray-100" : "text-gray-700 hover:bg-purple-50 hover:text-[#7065F0]"
+                          key={pageNum}
+                          type="button"
+                          onClick={() => handlePageChange(pageNum)}
+                          className={`w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl text-sm font-medium transition-colors cursor-pointer ${
+                            validCurrentPage === pageNum
+                              ? "bg-[#7065F0] text-white shadow-sm"
+                              : "text-gray-700 hover:bg-purple-50 hover:text-[#7065F0]"
                           }`}
                         >
-                          {symbol}
+                          {pageNum}
                         </button>
                       ))}
+
+                      <button
+                        type="button"
+                        onClick={() => handlePageChange(validCurrentPage + 1)}
+                        disabled={validCurrentPage >= totalPages}
+                        title="Next Page"
+                        className={`w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl transition-colors ${
+                          validCurrentPage >= totalPages
+                            ? "text-gray-300 cursor-not-allowed"
+                            : "text-gray-700 hover:bg-purple-50 hover:text-[#7065F0] cursor-pointer"
+                        }`}
+                      >
+                        ›
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handlePageChange(totalPages)}
+                        disabled={validCurrentPage >= totalPages}
+                        title="Last Page"
+                        className={`w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-xl transition-colors ${
+                          validCurrentPage >= totalPages
+                            ? "text-gray-300 cursor-not-allowed"
+                            : "text-gray-700 hover:bg-purple-50 hover:text-[#7065F0] cursor-pointer"
+                        }`}
+                      >
+                        »
+                      </button>
                     </div>
                   </div>
                 </div>

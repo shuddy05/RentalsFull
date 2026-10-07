@@ -1,28 +1,11 @@
 import "dotenv/config";
-import express from "express";
 import mongoose from "mongoose";
-import cors from "cors";
 import dns from "node:dns";
+import app from "./app.js";
 
 dns.setServers(["8.8.8.8", "1.1.1.1"]);
-import propertyRouter from "./routes/propertiesRouter.js";
-import { router as authRouter } from "./routes/authRouter.js";
-import savedPropertiesRouter from "./routes/savedPropertiesRouter.js";
-import adminRouter from "./routes/adminRouter.js";
-const app = express();
 
 const port = Number(process.env.PORT) || 1015;
-
-const allowedOrigins = (process.env.CLIENT_URL || "http://localhost:5173")
-  .split(",")
-  .map((origin) => origin.trim());
-app.use(cors({ origin: allowedOrigins, credentials: true }));
-app.use(express.json());
-
-app.use("/auth", authRouter);
-app.use("/api/properties", propertyRouter);
-app.use("/api/saved-properties", savedPropertiesRouter);
-app.use("/api/admin", adminRouter);
 
 const startServer = async () => {
   try {

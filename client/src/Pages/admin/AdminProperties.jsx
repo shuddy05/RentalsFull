@@ -28,6 +28,8 @@ const AdminProperties = () => {
   const [search, setSearch] = useState("");
   const [filterType, setFilterType] = useState("");
   const [filterStatus, setFilterStatus] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const ITEMS_PER_PAGE = 8;
   const [viewProperty, setViewProperty] = useState(null);
   const [editProperty, setEditProperty] = useState(null);
   const navigate = useNavigate();
@@ -72,6 +74,12 @@ const AdminProperties = () => {
     return matchSearch && matchType && matchStatus;
   });
 
+  const totalPages = Math.max(1, Math.ceil(filtered.length / ITEMS_PER_PAGE));
+  const validCurrentPage = Math.min(Math.max(1, currentPage), totalPages);
+  const startIndex = (validCurrentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = Math.min(startIndex + ITEMS_PER_PAGE, filtered.length);
+  const paginated = filtered.slice(startIndex, endIndex);
+
   if (loading)
     return (
       <div className="flex flex-col items-center justify-center py-20 gap-3">
@@ -93,7 +101,10 @@ const AdminProperties = () => {
               type="text"
               placeholder="Search Properties..."
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => {
+                setSearch(e.target.value);
+                setCurrentPage(1);
+              }}
               className="pl-9 pr-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#7065F0] w-[220px] transition-all focus:ring-2 focus:ring-[#7065F0]/20"
             />
             <span className="absolute left-3 top-3 text-gray-400 text-sm">
@@ -103,7 +114,10 @@ const AdminProperties = () => {
 
           <select
             value={filterType}
-            onChange={(e) => setFilterType(e.target.value)}
+            onChange={(e) => {
+              setFilterType(e.target.value);
+              setCurrentPage(1);
+            }}
             className="px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#7065F0] transition-all cursor-pointer"
           >
             <option value="">All</option>
@@ -115,7 +129,10 @@ const AdminProperties = () => {
 
           <select
             value={filterStatus}
-            onChange={(e) => setFilterStatus(e.target.value)}
+            onChange={(e) => {
+              setFilterStatus(e.target.value);
+              setCurrentPage(1);
+            }}
             className="px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-[#7065F0] transition-all cursor-pointer"
           >
             <option value="">All Status</option>
@@ -164,7 +181,7 @@ const AdminProperties = () => {
               </tr>
             </thead>
             <tbody>
-              {filtered.map((property) => (
+              {paginated.map((property) => (
                 <tr
                   key={property._id}
                   className="border-b border-gray-50 hover:bg-gray-50 transition-colors"
@@ -248,38 +265,80 @@ const AdminProperties = () => {
           </table>
         </div>
 
-        <div className="flex items-center justify-between px-4 py-3 border-t border-gray-100">
+        <div className="flex flex-col sm:flex-row items-center justify-between px-4 py-3 border-t border-gray-100 gap-3">
           <p className="text-sm text-gray-500">
-            Showing {filtered.length} of {properties.length}
+            Showing{" "}
+            <span className="font-semibold text-gray-700">
+              {filtered.length === 0 ? 0 : `${startIndex + 1} - ${endIndex}`}
+            </span>{" "}
+            of{" "}
+            <span className="font-semibold text-gray-700">{filtered.length}</span>{" "}
+            properties
           </p>
           <div className="flex items-center gap-1">
             <button
               type="button"
-              className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 cursor-pointer"
+              onClick={() => setCurrentPage(1)}
+              disabled={validCurrentPage <= 1}
+              className={`w-8 h-8 flex items-center justify-center rounded-lg text-sm transition-colors ${
+                validCurrentPage <= 1
+                  ? "text-gray-300 cursor-not-allowed"
+                  : "text-gray-600 hover:bg-gray-100 cursor-pointer"
+              }`}
+              title="First page"
             >
               «
             </button>
             <button
               type="button"
-              className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 cursor-pointer"
+              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+              disabled={validCurrentPage <= 1}
+              className={`w-8 h-8 flex items-center justify-center rounded-lg text-sm transition-colors ${
+                validCurrentPage <= 1
+                  ? "text-gray-300 cursor-not-allowed"
+                  : "text-gray-600 hover:bg-gray-100 cursor-pointer"
+              }`}
+              title="Previous page"
             >
               ‹
             </button>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+              <button
+                key={pageNum}
+                type="button"
+                onClick={() => setCurrentPage(pageNum)}
+                className={`w-8 h-8 flex items-center justify-center rounded-lg text-sm font-medium transition-colors cursor-pointer ${
+                  validCurrentPage === pageNum
+                    ? "bg-[#7065F0] text-white shadow-sm"
+                    : "text-gray-600 hover:bg-gray-100"
+                }`}
+              >
+                {pageNum}
+              </button>
+            ))}
             <button
               type="button"
-              className="w-8 h-8 flex items-center justify-center rounded-lg bg-[#7065F0] text-white cursor-pointer"
-            >
-              1
-            </button>
-            <button
-              type="button"
-              className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 cursor-pointer"
+              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+              disabled={validCurrentPage >= totalPages}
+              className={`w-8 h-8 flex items-center justify-center rounded-lg text-sm transition-colors ${
+                validCurrentPage >= totalPages
+                  ? "text-gray-300 cursor-not-allowed"
+                  : "text-gray-600 hover:bg-gray-100 cursor-pointer"
+              }`}
+              title="Next page"
             >
               ›
             </button>
             <button
               type="button"
-              className="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-gray-100 cursor-pointer"
+              onClick={() => setCurrentPage(totalPages)}
+              disabled={validCurrentPage >= totalPages}
+              className={`w-8 h-8 flex items-center justify-center rounded-lg text-sm transition-colors ${
+                validCurrentPage >= totalPages
+                  ? "text-gray-300 cursor-not-allowed"
+                  : "text-gray-600 hover:bg-gray-100 cursor-pointer"
+              }`}
+              title="Last page"
             >
               »
             </button>

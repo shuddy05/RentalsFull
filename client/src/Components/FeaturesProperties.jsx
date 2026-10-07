@@ -9,17 +9,21 @@ const FeaturesProperties = () => {
   const [showAll, setShowAll] = useState(false);
   const displayed = showAll ? properties : properties.slice(0, 9);
 
+  const fetchProperties = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await api.get("/api/properties");
+      setProperties(res.data);
+    } catch (err) {
+      console.error("Failed to fetch featured properties:", err);
+      setError("Failed to fetch properties. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchProperties = async () => {
-      try {
-        const res = await api.get("/api/properties");
-        setProperties(res.data);
-      } catch {
-        setError("Failed to fetch properties. Please try again later.");
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchProperties();
   }, []);
 
@@ -35,8 +39,14 @@ const FeaturesProperties = () => {
 
   if (error)
     return (
-      <div className="flex items-center justify-center py-20 bg-[#F1F0FE]">
-        <p className="text-red-500 text-lg">{error}</p>
+      <div className="flex flex-col items-center justify-center py-20 bg-[#F1F0FE] text-center px-4">
+        <p className="text-red-500 text-lg mb-3">{error}</p>
+        <button
+          onClick={fetchProperties}
+          className="px-5 py-2 rounded-xl bg-[#7065F0] hover:bg-[#5a51d4] text-white text-sm font-medium cursor-pointer transition-colors shadow-sm"
+        >
+          Retry
+        </button>
       </div>
     );
 
